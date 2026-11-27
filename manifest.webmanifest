@@ -1,0 +1,18 @@
+{
+  "id": "./index.html",
+  "name": "STEM Collaboration",
+  "short_name": "STEM Collab",
+  "description": "A shared workspace for Egypt's STEM students: school chat, announcements, competitions and teams.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "en",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
