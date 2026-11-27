@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>STEM Collaboration</title>
-<link rel="icon" href="logo.png">
+<link rel="icon" href="icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -56,6 +56,7 @@ form .btn.full{width:100%;margin-top:24px}
 .three{display:grid;grid-template-columns:repeat(3,1fr);margin-top:36px}
 .three>div{padding:0 32px;border-left:1px solid var(--line)}
 .three>div:first-child{padding-left:0;border-left:0}
+.three.four{grid-template-columns:repeat(4,1fr)}.three.four>div{padding:0 22px}.three.four>div:first-child{padding-left:0}
 .three h3{font-size:1.2rem;margin-bottom:8px}.three p{color:var(--mute);font-size:.98rem}
 .steps{list-style:none;padding:0;counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px}
 .steps li{counter-increment:s;border-top:2px solid var(--navy);padding-top:14px}
@@ -194,7 +195,77 @@ dialog.lb img{display:block;max-width:92vw;max-height:86vh}
 .tabbar a[aria-current=page]{color:var(--navy);box-shadow:inset 0 2px 0 var(--navy)}
 .nav .ic{display:none}
 
-footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-align:center;font-size:.88rem;color:var(--mute)}
+/* Competitions */
+.cps{display:flex;flex-direction:column;gap:18px;margin-top:8px}
+.cc{display:grid;grid-template-columns:280px 1fr;background:#fff;border:1px solid var(--line);color:inherit;text-decoration:none}
+.cc:hover{border-color:var(--navy)}
+.cc .th{position:relative;background:var(--tint);min-height:190px;display:flex;align-items:center;justify-content:center;color:#8a93bd;overflow:hidden}
+.cc .th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cc .bd{padding:20px 24px;min-width:0}
+.cc h2{font-size:1.35rem;overflow-wrap:anywhere}
+.cc .ex{color:var(--mute);font-size:.97rem;margin-top:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:.92rem;color:#343a56}
+.facts span{display:inline-flex;align-items:center;gap:6px}
+.facts .ic{color:var(--navy)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:.8rem;padding:0 10px;border:1px solid #cdd2e6;background:var(--tint);color:var(--navy);border-radius:12px;font-weight:500;line-height:1.7}
+.facts .st{font-weight:600}.st.up{color:var(--ok)}.st.end{color:var(--mute)}
+.back{display:inline-flex;align-items:center;gap:6px;margin-bottom:16px}
+#vComp h1{overflow-wrap:anywhere}
+.gal .stage{position:relative;background:var(--tint);border:1px solid var(--line);aspect-ratio:16/10}
+.gal .stage img{width:100%;height:100%;object-fit:contain;display:block;cursor:zoom-in}
+.gal .nb{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.92);border:1px solid #b9bed0;color:var(--navy)}
+.gal .nb.l{left:10px}.gal .nb.r{right:10px}
+.thumbs{display:flex;gap:8px;overflow-x:auto;margin-top:8px;padding-bottom:4px}
+.thumbs button{flex:none;width:84px;height:62px;padding:0;border:2px solid transparent;background:var(--tint);cursor:pointer}
+.thumbs button[aria-current=true]{border-color:var(--navy)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.desc{margin-top:26px;white-space:pre-wrap;overflow-wrap:anywhere;color:#343a56}
+.desc:empty{display:none}
+.box.wide{max-width:720px}
+.two-in{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.pickcats{display:flex;flex-wrap:wrap;gap:8px}
+.pickcats button{font:inherit;font-size:.9rem;padding:3px 13px;border:1px solid #b9bed0;border-radius:16px;background:#fff;color:var(--ink);cursor:pointer}
+.pickcats button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.pgrid figure{border:1px solid var(--line);background:var(--tint)}
+.pgrid img{width:100%;height:96px;object-fit:cover;display:block}
+.pgrid figcaption{display:flex;gap:4px;padding:5px;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--navy)}
+.pgrid .sm{margin:0;padding:3px 8px;font-size:.78rem}
+
+/* Teams */
+.cc.tm{grid-template-columns:200px 1fr}.cc.tm .th{min-height:140px}
+.tmh{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.tph{width:96px;height:96px;border:1px solid var(--line);background:var(--tint);display:flex;align-items:center;justify-content:center;color:#8a93bd;overflow:hidden;flex:none}
+.tph img{width:100%;height:100%;object-fit:cover;display:block}
+.mem{list-style:none;padding:0}
+.mem li{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.mem li:last-child{border-bottom:0}.mem b{font-weight:600;color:var(--navy)}
+#tmActions .btn{display:block;width:100%}#tmActions p{margin-top:10px}#tmActions .btn:first-child{margin-top:0}
+.reqrow{display:flex;gap:8px;flex-wrap:wrap}
+.chat.tc{height:480px;min-height:0;margin-top:0}
+.tc .cmsg{cursor:default}
+#tdPrev{display:block;max-width:140px;max-height:140px;margin-top:10px;border:1px solid var(--line)}
+@media(max-width:860px){.cc.tm{grid-template-columns:1fr}.cc.tm .th{min-height:0;aspect-ratio:16/9}}
+
+/* Footer */
+footer{background:var(--navy);color:#d6daf0;margin-top:auto;font-size:.95rem}
+footer h3{font-size:1.05rem;color:#fff;margin-bottom:12px}
+footer a{color:#d6daf0;text-underline-offset:3px}footer a:hover{color:#fff}
+footer :focus-visible{outline-color:#fff}
+.f-grid{display:grid;grid-template-columns:1.5fr 1fr 1.2fr;gap:48px;padding-top:52px;padding-bottom:40px}
+.f-logo{display:inline-block}
+.f-logo img{height:50px;width:auto;display:block}
+.f-brand p{margin-top:16px;max-width:26em;color:#b9c0e3}
+.f-col ul{list-style:none;padding:0}.f-col li{padding:4px 0}
+.f-col p{color:#b9c0e3;margin-bottom:14px}
+.wa{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--navy)!important;font-weight:600;padding:11px 20px;border-radius:3px;text-decoration:none}
+.wa:hover{background:var(--tint)}.wa:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.f-num{margin-top:10px;font-variant-numeric:tabular-nums;color:#fff}
+.f-bottom{border-top:1px solid rgba(255,255,255,.18);padding:18px 0;font-size:.88rem;color:#b9c0e3}
+.f-bottom .in{display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap}
+.f-bottom b{color:#fff;font-weight:600}
+
 
 @media(max-width:860px){
   :root{--hdr:64px}
@@ -203,7 +274,8 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
   .hero{padding-top:44px;padding-bottom:48px}.band{padding:44px 0}
   .lead{font-size:1.05rem}
   .two{grid-template-columns:1fr;gap:14px}.three,.steps{grid-template-columns:1fr}
-  .three>div{padding:18px 0;border-left:0;border-top:1px solid var(--line)}.three>div:first-child{border-top:0}
+  .three.four{grid-template-columns:1fr}
+  .three>div,.three.four>div{padding:18px 0;border-left:0;border-top:1px solid var(--line)}.three>div:first-child{border-top:0}
   .schools{columns:1}
   .auth{grid-template-columns:1fr}
   .side{padding:26px 20px;border-right:0;border-bottom:1px solid var(--line)}
@@ -211,6 +283,9 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
   .formcol{padding:28px 20px}
   .pg{padding:30px 20px 56px}.pg h1{font-size:1.7rem}
   .grid2{grid-template-columns:1fr;gap:28px}
+  .cc{grid-template-columns:1fr}.cc .th{min-height:0;aspect-ratio:16/9}.cc .bd{padding:16px 18px}
+  #vComp aside{order:-1}
+  .f-grid{grid-template-columns:1fr;gap:30px;padding-top:36px;padding-bottom:28px}
   .closing{padding:40px 0}.closing h2{font-size:1.5rem}.h2s,.two h2{font-size:1.45rem}
   #vCommunity{padding:16px 12px 12px}
   #vCommunity h1{font-size:1.4rem}
@@ -222,6 +297,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
   .cmsg{max-width:92%}
 }
 @media(max-width:700px){
+  .two-in{grid-template-columns:1fr}
   #whoId{display:none}
   .nav .ic{display:block}
   #logoutBtn{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;color:var(--navy);text-decoration:none}
@@ -272,6 +348,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
 
 <nav class="appnav hidden" id="appnav" aria-label="Main"><div class="in">
   <a href="#" data-v="vDash">Dashboard</a>
+  <a href="#competitions" data-v="vComps">Competitions</a>
   <a href="#community" data-v="vCommunity">Your school community</a>
   <a href="#admin" data-v="vAdmin" id="navAdmin" class="hidden">Admin</a>
 </div></nav>
@@ -279,6 +356,7 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
 
 <nav class="tabbar hidden" id="tabbar" aria-label="Main">
   <a href="#" data-v="vDash"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Dashboard</span></a>
+  <a href="#competitions" data-v="vComps"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><span>Competitions</span></a>
   <a href="#community" data-v="vCommunity"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><span>Community</span></a>
   <a href="#admin" data-v="vAdmin" id="tabAdmin" class="hidden"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span>Admin</span></a>
 </nav>
@@ -299,9 +377,10 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
   </div></section>
   <section class="band"><div class="in">
     <h2 class="serif h2s">What it is built for</h2>
-    <div class="three">
+    <div class="three four">
       <div><h3>Your school community</h3><p>A live chat for the students of your own school, with photos, links and emoji reactions.</p></div>
       <div><h3>Announcements</h3><p>Important news from the platform team, shown on your dashboard as soon as you sign in.</p></div>
+      <div><h3>Competitions</h3><p>Upcoming STEM competitions with dates, photos and full details, sorted by field such as robotics, programming and math.</p></div>
       <div><h3>Finding teammates</h3><p>Meet students across schools who share your interests, for competitions, research and capstone work.</p></div>
     </div>
   </div></section>
@@ -381,6 +460,11 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
         <a class="btn" href="#community">Open the chat</a>
       </div>
       <div class="card">
+        <h2 class="serif">Competitions</h2>
+        <p>See upcoming STEM competitions with dates, photos and full details. Filter by field or search by name.</p>
+        <a class="btn" href="#competitions">Browse competitions</a>
+      </div>
+      <div class="card">
         <h2 class="serif">Your account</h2>
         <dl class="dl">
           <dt>Name</dt><dd id="dName"></dd>
@@ -423,12 +507,87 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
   </div>
 </main>
 
+<!-- Competitions -->
+<main id="vComps" class="in pg hidden">
+  <h1 class="serif">Competitions</h1>
+  <p class="sub">Upcoming and past STEM competitions. Open one to see its photos and full details.</p>
+  <div class="tools">
+    <input id="pSearch" type="search" placeholder="Search competitions" aria-label="Search competitions">
+    <select id="pCat" aria-label="Category"><option value="">All categories</option></select>
+    <select id="pStat" aria-label="Status"><option value="">All dates</option><option value="up">Upcoming</option><option value="end">Past</option></select>
+    <span class="count" id="pCount"></span>
+  </div>
+  <div class="msg-line" id="pMsg" role="alert" style="margin-top:0"></div>
+  <div class="cps" id="pList"></div>
+</main>
+
+<main id="vComp" class="in pg hidden">
+  <a class="back link" href="#competitions"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All competitions</a>
+  <div class="msg-line" id="dtMsg" role="alert" style="margin-top:0"></div>
+  <div id="pDetail" class="hidden">
+    <h1 class="serif" id="dtTitle" dir="auto"></h1>
+    <div class="tags" id="dtTags"></div>
+    <div class="grid2">
+      <div><div class="gal" id="gal"></div><div class="desc" id="dtDesc" dir="auto"></div></div>
+      <aside><div class="card"><h2 class="serif">Details</h2><dl class="dl" id="dtDl"></dl><div id="dtLink"></div><div id="dtTeams"></div></div></aside>
+    </div>
+  </div>
+</main>
+
+<!-- Teams of a competition -->
+<main id="vTeams" class="in pg hidden">
+  <a class="back link" id="tsBack" href="#competitions"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back to the competition</a>
+  <div class="msg-line" id="tsMsg" role="alert" style="margin-top:0"></div>
+  <div id="tsBody" class="hidden">
+    <h1 class="serif" id="tsTitle">Teams</h1>
+    <p class="sub" id="tsSub" dir="auto"></p>
+    <div class="tools"><button class="btn" id="tsCreate" type="button">Create new team</button><span id="tsNote"></span></div>
+    <div class="cps" id="tsList"></div>
+  </div>
+</main>
+
+<!-- One team -->
+<main id="vTeam" class="in pg hidden">
+  <a class="back link" id="tmBack" href="#competitions"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All teams</a>
+  <div class="msg-line" id="tmMsg" role="alert" style="margin-top:0"></div>
+  <div id="tmBody" class="hidden">
+    <div class="tmh"><div class="tph" id="tmPhoto"></div><div><h1 class="serif" id="tmTitle" dir="auto"></h1><p class="sub" id="tmSub" dir="auto"></p><div class="facts" id="tmFacts"></div></div></div>
+    <div class="msg-line" id="tmErr" role="alert"></div>
+    <div class="grid2">
+      <div>
+        <div class="desc" id="tmDesc" dir="auto" style="margin:0 0 20px"></div>
+        <section class="card hidden" id="tmReqCard"><h2 class="serif">Join requests<span id="tmReqCount"></span></h2><div id="tmReqs"></div></section>
+        <section class="card hidden" id="tcCard" style="padding:0">
+          <div class="chat tc">
+            <div class="chead"><b>Team chat</b><span class="long"> Only team members can see this. Messages are cleared every day at midnight (Cairo time).</span></div>
+            <div class="clist" id="tcList" aria-live="polite"><div class="cempty hidden" id="tcEmpty">No messages yet today. Say hello to your team.</div></div>
+            <form class="composer" id="tcForm" novalidate>
+              <div class="cbox">
+                <textarea id="tcText" dir="auto" rows="1" maxlength="1000" placeholder="Write a message" aria-label="Message"></textarea>
+                <span class="cwait hidden" id="tcWait"></span>
+                <button class="send" type="submit" id="tcSend" aria-label="Send"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></button>
+              </div>
+              <div class="cnote">One message every 2 minutes.</div>
+              <div class="msg-line" id="tcMsgLine" role="alert" style="margin-top:6px;min-height:0"></div>
+            </form>
+          </div>
+        </section>
+      </div>
+      <aside>
+        <div class="card"><h2 class="serif">Members</h2><p class="hint" id="tmMin" style="margin:0 0 6px"></p><ul class="mem" id="tmMembers"></ul></div>
+        <div class="card hidden" id="tmActCard"><div id="tmActions"></div></div>
+      </aside>
+    </div>
+  </div>
+</main>
+
 <!-- Admin -->
 <main id="vAdmin" class="in pg hidden">
   <h1 class="serif">Admin</h1>
   <div class="subtabs" role="tablist">
     <button role="tab" data-tab="acc" aria-selected="true">Accounts</button>
     <button role="tab" data-tab="ann" aria-selected="false">Announcements</button>
+    <button role="tab" data-tab="cmp" aria-selected="false">Competitions</button>
   </div>
 
   <section id="tabAcc">
@@ -455,6 +614,36 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
       <div class="msg-line" id="nMsg" role="alert"></div>
     </form>
     <div class="card" style="margin-top:28px;max-width:720px"><h2 class="serif">Posted</h2><div id="nList"></div></div>
+  </section>
+  <section id="tabCmp" class="hidden">
+    <form class="box wide" id="cmpForm" novalidate>
+      <h2 class="serif" id="kHead">New competition</h2>
+      <label for="kTitle">Name</label><input id="kTitle" maxlength="120" dir="auto">
+      <label id="kModeLbl">Participation</label>
+      <div class="pickcats" id="kMode" role="group" aria-labelledby="kModeLbl"><button type="button" data-m="individual" aria-pressed="true">Individual</button><button type="button" data-m="team" aria-pressed="false">With a team</button></div>
+      <div class="two-in hidden" id="kTeamSize">
+        <div><label for="kMin">Minimum team size</label><input id="kMin" type="number" min="1" max="20" inputmode="numeric"></div>
+        <div><label for="kMax">Maximum team size</label><input id="kMax" type="number" min="1" max="20" inputmode="numeric"></div>
+      </div>
+      <label id="kCatLbl">Categories (choose up to 8)</label><div class="pickcats" id="kCats" role="group" aria-labelledby="kCatLbl"></div>
+      <div class="two-in">
+        <div><label for="kDate">Date</label><input id="kDate" type="date"></div>
+        <div><label for="kTime">Time (optional)</label><input id="kTime" type="time"></div>
+      </div>
+      <label for="kLoc">Location (optional)</label><input id="kLoc" maxlength="150" dir="auto">
+      <label for="kLink">Link (optional)</label><input id="kLink" type="url" placeholder="https://" maxlength="300">
+      <div class="hint">Registration or official page.</div>
+      <label for="kDesc">Details</label><textarea id="kDesc" rows="8" maxlength="5000" dir="auto" style="resize:vertical"></textarea>
+      <label>Photos</label>
+      <div class="hint" style="margin:0 0 8px">The first photo is the cover. <span id="kCount"></span></div>
+      <button class="btn plain" type="button" id="kAdd">Add photos</button>
+      <input id="kFile" type="file" accept="image/*" multiple class="hidden">
+      <div class="pgrid" id="kImgs"></div>
+      <button class="btn full" type="submit" id="kSubmit">Publish competition</button>
+      <button class="btn plain full hidden" type="button" id="kCancel" style="margin-top:10px">Cancel editing</button>
+      <div class="msg-line" id="kMsg" role="alert"></div>
+    </form>
+    <div class="card" style="margin-top:28px;max-width:720px"><h2 class="serif">Published competitions</h2><div id="kList"></div></div>
   </section>
 </main>
 
@@ -485,9 +674,63 @@ footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-a
   </form>
 </dialog>
 
+<dialog id="teamDlg">
+  <form id="teamForm" novalidate>
+    <h2 class="serif" style="font-size:1.4rem">Create a new team</h2>
+    <label for="tdName">Team name</label>
+    <input id="tdName" maxlength="50" dir="auto">
+    <label for="tdDesc">About the team</label>
+    <textarea id="tdDesc" rows="4" maxlength="1000" dir="auto" style="resize:vertical"></textarea>
+    <div class="hint">Who you are looking for, your idea, your plan.</div>
+    <label>Team photo (optional)</label>
+    <button class="btn plain" type="button" id="tdPhotoBtn">Choose a photo</button>
+    <input id="tdFile" type="file" accept="image/*" class="hidden">
+    <img id="tdPrev" class="hidden" alt="Team photo preview">
+    <div class="msg-line" id="tdMsg" role="alert"></div>
+    <div class="row"><button class="btn plain" type="button" id="tdCancel">Cancel</button><button class="btn" type="submit" id="tdSubmit">Create team</button></div>
+  </form>
+</dialog>
+
+<dialog id="joinDlg">
+  <form id="joinForm" novalidate>
+    <h2 class="serif" style="font-size:1.4rem">Request participation</h2>
+    <label for="jnReason">Why do you want to join this team?</label>
+    <textarea id="jnReason" rows="5" maxlength="500" dir="auto" style="resize:vertical"></textarea>
+    <div class="hint">The team owner will see this message with your name, student ID, school and phone number.</div>
+    <div class="msg-line" id="jnMsg" role="alert"></div>
+    <div class="row"><button class="btn plain" type="button" id="jnCancel">Cancel</button><button class="btn" type="submit">Send request</button></div>
+  </form>
+</dialog>
+
 <dialog id="imgDlg" class="lb"><img id="lbImg" alt="Photo"></dialog>
 
-<footer>&copy; STEM Collaboration</footer>
+<footer>
+  <div class="in f-grid">
+    <div class="f-brand">
+      <a class="f-logo" href="#" aria-label="STEM Collaboration home"><img src="logo-white.png" alt="STEM Collaboration"></a>
+      <p>A shared workspace for the students of Egypt's STEM schools: school chat, announcements and competitions.</p>
+    </div>
+    <nav class="f-col" aria-label="Footer">
+      <h3>Explore</h3>
+      <ul>
+        <li class="f-out"><a href="#signin">Sign in</a></li>
+        <li class="f-out"><a href="#register">Create an account</a></li>
+        <li class="f-in hidden"><a href="#">Dashboard</a></li>
+        <li class="f-in hidden"><a href="#competitions">Competitions</a></li>
+        <li class="f-in hidden"><a href="#community">Your school community</a></li>
+      </ul>
+    </nav>
+    <div class="f-col">
+      <h3>Contact us</h3>
+      <p>Questions, ideas, or a competition you want listed? Message us on WhatsApp.</p>
+      <a class="wa" href="https://wa.me/201070827731" target="_blank" rel="noopener noreferrer"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span>Chat on WhatsApp</span></a>
+      <div class="f-num" dir="ltr">+20 107 082 7731</div>
+    </div>
+  </div>
+  <div class="f-bottom"><div class="in">
+    <p>&copy; <span id="fYear">2026</span> STEM Collaboration. All rights reserved to <b>Diaa Abdelhady Abdelzien</b>.</p>
+  </div></div>
+</footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
@@ -554,20 +797,28 @@ const say = (e, text, type = "err") => { e.textContent = text; e.className = "ms
 
 // ---------- Icons ----------
 const ICON = {
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
   chevron: '<path d="m6 9 6 6 6-6"/>',
   search: '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
-  check: '<path d="M20 6 9 17l-5-5"/>'
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  calendar: '<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  pin: '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+  left: '<path d="m15 18-6-6 6-6"/>',
+  right: '<path d="m9 18 6-6-6-6"/>',
+  trophy: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>'
 };
 const icon = (n, size = 20) => `<svg class="ic" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[n]}</svg>`;
 
 // ---------- Searchable dropdown (replaces the native school <select>; the select stays in sync) ----------
-function dropdown(sel, { ph = "Select", all = "" } = {}) {
+function dropdown(sel, { ph = "Select", all = "", sp = "Search schools", none = "No school matches your search." } = {}) {
   const wrap = el("div", "dd"), btn = el("button", "dd-btn"), txt = el("span");
   btn.type = "button"; btn.setAttribute("aria-haspopup", "listbox"); btn.setAttribute("aria-expanded", "false");
   btn.append(txt); btn.insertAdjacentHTML("beforeend", icon("chevron", 18));
   const back = el("div", "dd-back"), panel = el("div", "dd-panel hidden");
   const sw = el("div", "dd-search"); sw.insertAdjacentHTML("beforeend", icon("search", 18));
-  const search = document.createElement("input"); search.type = "search"; search.placeholder = "Search schools"; search.setAttribute("aria-label", "Search schools"); search.autocomplete = "off";
+  const search = document.createElement("input"); search.type = "search"; search.placeholder = sp; search.setAttribute("aria-label", sp); search.autocomplete = "off";
   sw.appendChild(search);
   const list = el("ul", "dd-list"); list.setAttribute("role", "listbox");
   panel.append(sw, list); wrap.append(btn, back, panel);
@@ -598,7 +849,7 @@ function dropdown(sel, { ph = "Select", all = "" } = {}) {
       if (o.value === sel.value) { li.classList.add("sel"); li.setAttribute("aria-selected", "true"); li.insertAdjacentHTML("beforeend", icon("check", 18)); }
       items.push(li); list.appendChild(li);
     });
-    if (!items.length) { const n = el("li", "dd-none", "No school matches your search."); list.appendChild(n); }
+    if (!items.length) { const n = el("li", "dd-none", none); list.appendChild(n); }
     const cur = items.findIndex(li => li.classList.contains("sel"));
     setAct(f ? 0 : cur);
   }
@@ -642,6 +893,7 @@ SCHOOLS.forEach(s => {
 dropdown($("rSchool"), { ph: "Select your school" });
 dropdown($("aSchool"), { all: "All schools" });
 dropdown($("eSchool"), { ph: "Select your school" });
+dropdown($("pCat"), { all: "All categories", sp: "Search categories", none: "No category matches your search." });
 
 // ---------- State and routing ----------
 let currentUser = null, profile = null, isAdmin = false, ready = false, busy = false;
@@ -649,11 +901,11 @@ let rows = [], anns = [];
 
 function render(){
   if (!ready || busy) return;
-  const h = location.hash.replace("#", "");
+  const h = location.hash.replace("#", ""), [h0, hid, h2] = h.split("/");
   let view;
   if (!currentUser) view = (h === "signin" || h === "register") ? "vAuth" : "vHome";
-  else view = h === "community" ? "vCommunity" : (h === "admin" && isAdmin) ? "vAdmin" : "vDash";
-  ["vHome", "vAuth", "vDash", "vCommunity", "vAdmin"].forEach(v => $(v).classList.toggle("hidden", v !== view));
+  else view = h === "community" ? "vCommunity" : h === "competitions" ? "vComps" : (h0 === "competition" && hid) ? (h2 === "teams" ? "vTeams" : "vComp") : (h0 === "team" && hid && h2) ? "vTeam" : (h === "admin" && isAdmin) ? "vAdmin" : "vDash";
+  ["vHome", "vAuth", "vDash", "vCommunity", "vComps", "vComp", "vTeams", "vTeam", "vAdmin"].forEach(v => $(v).classList.toggle("hidden", v !== view));
   const reg = h === "register";
   $("loginForm").classList.toggle("hidden", reg); $("txtSignin").classList.toggle("hidden", reg);
   $("regForm").classList.toggle("hidden", !reg); $("txtRegister").classList.toggle("hidden", !reg);
@@ -664,17 +916,24 @@ function render(){
   document.body.dataset.view = view;
   $("navAdmin").classList.toggle("hidden", !isAdmin);
   $("tabAdmin").classList.toggle("hidden", !isAdmin);
-  document.querySelectorAll("#appnav a, #tabbar a").forEach(a => { if (a.dataset.v === view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  document.querySelectorAll("#appnav a, #tabbar a").forEach(a => { if (a.dataset.v === (["vComp", "vTeams", "vTeam"].includes(view) ? "vComps" : view)) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
   $("whoId").textContent = inn && profile ? (profile.fullName || profile.studentId) : "";
   $("navSignin").classList.toggle("hidden", inn || view === "vAuth");
   $("whoId").classList.toggle("hidden", !inn);
   $("logoutBtn").classList.toggle("hidden", !inn);
+  document.querySelectorAll(".f-in").forEach(x => x.classList.toggle("hidden", !inn));
+  document.querySelectorAll(".f-out").forEach(x => x.classList.toggle("hidden", inn));
   window.scrollTo(0, 0);
   if (view !== "vCommunity") stopChat();
+  if (view !== "vTeam") stopTeam();
   if (inn && profile && !profile.fullName) { if (!$("nameDlg").open) $("nameDlg").showModal(); return; }
   if (view === "vDash") { drawAccount(); loadAnnouncements(); }
   if (view === "vCommunity") startChat();
-  if (view === "vAdmin") { loadUsers(); loadAnnouncements(); }
+  if (view === "vComps") loadComps();
+  if (view === "vComp") openComp(decodeURIComponent(hid));
+  if (view === "vTeams") openTeams(decodeURIComponent(hid));
+  if (view === "vTeam") openTeam(decodeURIComponent(hid), decodeURIComponent(h2));
+  if (view === "vAdmin") { loadUsers(); loadAnnouncements(); loadComps(); }
 }
 window.addEventListener("hashchange", render);
 
@@ -1021,6 +1280,7 @@ document.querySelectorAll(".subtabs button").forEach(b => b.addEventListener("cl
   document.querySelectorAll(".subtabs button").forEach(x => x.setAttribute("aria-selected", x === b));
   $("tabAcc").classList.toggle("hidden", b.dataset.tab !== "acc");
   $("tabAnn").classList.toggle("hidden", b.dataset.tab !== "ann");
+  $("tabCmp").classList.toggle("hidden", b.dataset.tab !== "cmp");
 }));
 
 async function loadUsers(){
@@ -1097,6 +1357,603 @@ async function removeAnn(n){
   try { await deleteDoc(doc(db, "announcements", n.id)); loadAnnouncements(); }
   catch (err) { console.error(err); say($("nMsg"), adminErr(err)); }
 }
+
+// ---------- Competitions ----------
+const COMP_CATS = ["Programming", "Robotics", "Software", "Hardware", "Electronics", "Artificial intelligence", "Science", "Physics", "Chemistry", "Biology", "Math", "Mechanics", "Engineering", "General knowledge", "Drawing", "Design", "Innovation", "Other"];
+const MAX_PHOTOS = 12, MAX_CATS = 8, ISO = /^\d{4}-\d{2}-\d{2}$/;
+let comps = [], compsOk = false, compTok = 0, gal = [], gi = 0;
+$("fYear").textContent = new Date().getFullYear();
+
+const todayCairo = () => new Intl.DateTimeFormat("en-CA", { timeZone: TZ }).format(new Date());
+const fmtDay = d => ISO.test(d) ? new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }) : "";
+const fmtHM = t => { if (!/^\d\d:\d\d$/.test(t || "")) return ""; const [h, m] = t.split(":").map(Number); return new Date(Date.UTC(2000, 0, 1, h, m)).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: "UTC" }); };
+function compStatus(d){
+  const n = Math.round((Date.parse(d + "T00:00:00Z") - Date.parse(todayCairo() + "T00:00:00Z")) / 864e5);
+  if (n < 0) return { k: "end", t: "Ended" };
+  return { k: "up", t: n === 0 ? "Today" : n === 1 ? "Tomorrow" : `In ${n} days` };
+}
+function sortComps(list){
+  const t = todayCairo();
+  return [...list.filter(c => c.date >= t).sort((a, b) => a.date.localeCompare(b.date)), ...list.filter(c => c.date < t).sort((a, b) => b.date.localeCompare(a.date))];
+}
+const fact = (ic, text, cls) => { const s = el("span", cls); s.insertAdjacentHTML("beforeend", icon(ic, 16)); s.append(document.createTextNode(text)); return s; };
+const tagsOf = cats => { const d = el("div", "tags"); (cats || []).forEach(c => d.appendChild(el("span", "tag", c))); return d; };
+
+async function loadComps(){
+  try {
+    const s = await getDocs(query(collection(db, "competitions"), orderBy("createdAt", "desc"), limit(100)));
+    comps = s.docs.map(d => ({ id: d.id, ...d.data() })); compsOk = true; say($("pMsg"), "", "ok");
+  } catch (err) { console.error(err); say($("pMsg"), errText(err)); }
+  buildCatFilter(); drawComps(); drawCompAdmin();
+}
+function buildCatFilter(){
+  const sel = $("pCat"), cur = sel.value, have = new Set(comps.flatMap(c => c.categories || []));
+  while (sel.options.length > 1) sel.remove(1);
+  [...COMP_CATS.filter(c => have.has(c)), ...[...have].filter(c => !COMP_CATS.includes(c))].forEach(c => opt(sel, c));
+  sel.value = [...sel.options].some(o => o.value === cur) ? cur : ""; sel._sync();
+}
+function compCard(c){
+  const a = el("a", "cc"); a.href = "#competition/" + encodeURIComponent(c.id);
+  const th = el("div", "th");
+  if (/^data:image\//.test(c.cover || "")) { const im = el("img"); im.src = c.cover; im.alt = ""; im.loading = "lazy"; th.appendChild(im); }
+  else th.insertAdjacentHTML("beforeend", icon("trophy", 48));
+  const bd = el("div", "bd"), h = el("h2", "serif", c.title); h.dir = "auto";
+  const s = compStatus(c.date), f = el("div", "facts");
+  f.append(el("span", "st " + s.k, s.t), fact("calendar", fmtDay(c.date) + (c.time ? ", " + fmtHM(c.time) : "")));
+  if (c.location) { const l = fact("pin", c.location); l.dir = "auto"; f.appendChild(l); }
+  f.appendChild(fact(c.mode === "team" ? "users" : "user", c.mode === "team" ? `Teams of ${sizeText(c)}` : "Individual"));
+  bd.append(h, f, tagsOf(c.categories));
+  if (c.description) { const p = el("p", "ex", c.description); p.dir = "auto"; bd.appendChild(p); }
+  a.append(th, bd); return a;
+}
+function drawComps(){
+  const box = $("pList"); box.textContent = "";
+  const q = $("pSearch").value.trim().toLowerCase(), cat = $("pCat").value, st = $("pStat").value, t = todayCairo();
+  const list = sortComps(comps).filter(c => (!cat || (c.categories || []).includes(cat)) && (!st || (st === "up") === (c.date >= t)) &&
+    (!q || [c.title, c.description, c.location, ...(c.categories || [])].some(v => String(v || "").toLowerCase().includes(q))));
+  $("pCount").textContent = compsOk ? `${list.length} of ${comps.length} competitions` : "";
+  if (!list.length) { if (compsOk) box.appendChild(el("p", "empty", comps.length ? "No competitions match your search." : "No competitions have been posted yet.")); return; }
+  list.forEach(c => box.appendChild(compCard(c)));
+}
+$("pSearch").addEventListener("input", drawComps);
+$("pCat").addEventListener("change", drawComps);
+$("pStat").addEventListener("change", drawComps);
+
+async function openComp(id){
+  const tok = ++compTok;
+  $("pDetail").classList.add("hidden"); say($("dtMsg"), "Loading...", "ok");
+  let c = null;
+  try { const s = await getDoc(doc(db, "competitions", id)); if (s.exists()) c = { id: s.id, ...s.data() }; }
+  catch (err) { console.error(err); if (tok === compTok) say($("dtMsg"), errText(err)); return; }
+  if (tok !== compTok) return;
+  if (!c) return say($("dtMsg"), "This competition was not found. It may have been removed.");
+  say($("dtMsg"), "", "ok"); drawDetail(c); $("pDetail").classList.remove("hidden");
+  if (!(c.imageCount > 0)) return;
+  try {
+    const s = await getDocs(query(collection(db, "competitions", id, "images"), orderBy("order", "asc")));
+    const imgs = s.docs.map(d => d.data().data).filter(x => /^data:image\//.test(x || ""));
+    if (tok === compTok && imgs.length) drawGallery(imgs);
+  } catch (err) { console.error(err); }
+}
+function drawDetail(c){
+  $("dtTitle").textContent = c.title;
+  const tg = $("dtTags"); tg.replaceWith(Object.assign(tagsOf(c.categories), { id: "dtTags" }));
+  $("dtDesc").textContent = c.description || "";
+  const dl = $("dtDl"), s = compStatus(c.date); dl.textContent = "";
+  const row = (k, v, cls) => { dl.append(el("dt", null, k)); const d = el("dd", cls, v); d.dir = "auto"; dl.appendChild(d); };
+  row("Date", fmtDay(c.date)); if (c.time) row("Time", fmtHM(c.time)); if (c.location) row("Location", c.location);
+  row("Status", s.t, "st " + s.k);
+  row("Participation", c.mode === "team" ? `Teams of ${sizeText(c)} members` : "Individual");
+  const tl = $("dtTeams"); tl.textContent = "";
+  if (c.mode === "team") { const a = el("a", "btn", "Teams"); a.href = `#competition/${encodeURIComponent(c.id)}/teams`; tl.appendChild(a); }
+  const lk = $("dtLink"); lk.textContent = "";
+  if (c.link && validLink(c.link)) { const a = linkButton(c.link); a.classList.remove("mlink"); a.textContent = "Open the competition page"; lk.appendChild(a); }
+  drawGallery(/^data:image\//.test(c.cover || "") ? [c.cover] : []);
+}
+function drawGallery(list){
+  gal = list; gi = 0;
+  const g = $("gal"); g.textContent = ""; if (!list.length) return;
+  const st = el("div", "stage"), im = el("img"), th = el("div", "thumbs");
+  im.alt = "Competition photo";
+  im.addEventListener("click", () => { $("lbImg").src = gal[gi]; $("imgDlg").showModal(); });
+  st.appendChild(im);
+  const show = i => { gi = (i + gal.length) % gal.length; im.src = gal[gi]; [...th.children].forEach((b, k) => b.setAttribute("aria-current", k === gi)); };
+  if (list.length > 1) {
+    const nb = (cls, label, ic, d) => { const b = el("button", "ibtn nb " + cls); b.type = "button"; b.setAttribute("aria-label", label); b.innerHTML = icon(ic, 22); b.onclick = () => show(gi + d); return b; };
+    st.append(nb("l", "Previous photo", "left", -1), nb("r", "Next photo", "right", 1));
+    list.forEach((src, k) => { const b = el("button"); b.type = "button"; b.setAttribute("aria-label", "Photo " + (k + 1)); const t = el("img"); t.src = src; t.alt = ""; b.appendChild(t); b.onclick = () => show(k); th.appendChild(b); });
+  }
+  g.appendChild(st); if (list.length > 1) g.appendChild(th); show(0);
+}
+
+// Admin: create, edit and delete competitions
+let kImgs = [], kOrig = [], kEditing = null, kCats = new Set(), kMode = "individual";
+function drawKCats(){
+  const box = $("kCats"); box.textContent = "";
+  [...COMP_CATS, ...[...kCats].filter(c => !COMP_CATS.includes(c))].forEach(c => {
+    const b = el("button", null, c); b.type = "button"; b.setAttribute("aria-pressed", kCats.has(c));
+    b.onclick = () => { if (kCats.has(c)) kCats.delete(c); else if (kCats.size < MAX_CATS) kCats.add(c); drawKCats(); };
+    box.appendChild(b);
+  });
+}
+function drawKImgs(){
+  const g = $("kImgs"); g.textContent = "";
+  kImgs.forEach((x, i) => {
+    const f = el("figure"), im = el("img"), cap = el("figcaption"); im.src = x.data; im.alt = "";
+    if (i === 0) cap.appendChild(el("b", null, "Cover"));
+    else { const b = el("button", "sm", "Make cover"); b.type = "button"; b.onclick = () => { kImgs.unshift(...kImgs.splice(i, 1)); drawKImgs(); }; cap.appendChild(b); }
+    const r = el("button", "sm del", "Remove"); r.type = "button"; r.onclick = () => { kImgs.splice(i, 1); drawKImgs(); }; cap.appendChild(r);
+    f.append(im, cap); g.appendChild(f);
+  });
+  $("kCount").textContent = `${kImgs.length} of ${MAX_PHOTOS} added.`;
+}
+async function packImage(src, maxDim, maxChars){
+  const img = await loadImg(typeof src === "string" ? src : await readFile(src));
+  let scale = Math.min(1, maxDim / Math.max(img.width, img.height));
+  for (let i = 0; i < 8; i++) {
+    const c = document.createElement("canvas"); c.width = Math.max(1, Math.round(img.width * scale)); c.height = Math.max(1, Math.round(img.height * scale));
+    const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height);
+    for (const q of [0.82, 0.7, 0.58, 0.45]) { const o = c.toDataURL("image/jpeg", q); if (o.length <= maxChars) return o; }
+    scale *= 0.8;
+  }
+  throw new Error("too large");
+}
+$("kAdd").addEventListener("click", () => $("kFile").click());
+$("kFile").addEventListener("change", async e => {
+  const files = [...e.target.files], m = $("kMsg"); e.target.value = ""; let note = "";
+  for (const f of files) {
+    if (kImgs.length >= MAX_PHOTOS) { note = `You can add up to ${MAX_PHOTOS} photos.`; break; }
+    if (!f.type.startsWith("image/")) { note = "Only image files can be added."; continue; }
+    say(m, "Preparing photos...", "ok");
+    try { kImgs.push({ data: await packImage(f, 1600, 450000) }); } catch (err) { console.error(err); note = "Could not read " + f.name + "."; }
+    drawKImgs();
+  }
+  say(m, note, note ? "err" : "ok");
+});
+function resetForm(){
+  kEditing = null; kImgs = []; kOrig = []; kCats = new Set();
+  $("cmpForm").reset(); kMode = "individual"; drawKCats(); drawKImgs(); drawKMode();
+  $("kHead").textContent = "New competition"; $("kSubmit").textContent = "Publish competition"; $("kSubmit").disabled = false; $("kCancel").classList.add("hidden");
+}
+$("kCancel").addEventListener("click", () => { resetForm(); say($("kMsg"), "", "ok"); });
+async function startEdit(c){
+  resetForm(); kEditing = c; kCats = new Set(c.categories || []);
+  $("kTitle").value = c.title || ""; $("kDate").value = c.date || ""; $("kTime").value = c.time || ""; $("kLoc").value = c.location || ""; $("kLink").value = c.link || ""; $("kDesc").value = c.description || "";
+  kMode = c.mode === "team" ? "team" : "individual"; $("kMin").value = c.minTeam || ""; $("kMax").value = c.maxTeam || ""; drawKMode();
+  $("kHead").textContent = "Edit competition"; $("kSubmit").textContent = "Save changes"; $("kCancel").classList.remove("hidden");
+  drawKCats(); $("cmpForm").scrollIntoView({ block: "start" });
+  if (!(c.imageCount > 0)) return;
+  const m = $("kMsg"); $("kSubmit").disabled = true; say(m, "Loading photos...", "ok");
+  try {
+    const s = await getDocs(query(collection(db, "competitions", c.id, "images"), orderBy("order", "asc")));
+    kImgs = s.docs.map((d, i) => ({ id: d.id, data: d.data().data, order: i })); kOrig = kImgs.map(x => x.id);
+    drawKImgs(); say(m, "", "ok"); $("kSubmit").disabled = false;
+  } catch (err) { console.error(err); say(m, adminErr(err)); }
+}
+$("cmpForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const m = $("kMsg"), btn = e.submitter || $("kSubmit");
+  const title = $("kTitle").value.trim().replace(/\s+/g, " "), date = $("kDate").value, time = $("kTime").value, loc = $("kLoc").value.trim(), link = $("kLink").value.trim(), description = $("kDesc").value.trim(), categories = [...kCats];
+  if (title.length < 3) return say(m, "Enter the competition name (3+ characters).");
+  if (!categories.length) return say(m, "Choose at least one category.");
+  if (!ISO.test(date)) return say(m, "Choose the competition date.");
+  if (link && !validLink(link)) return say(m, "The link must start with http:// or https://");
+  let tmin = 0, tmax = 0;
+  if (kMode === "team") {
+    tmin = Number($("kMin").value); tmax = Number($("kMax").value);
+    if (!Number.isInteger(tmin) || !Number.isInteger(tmax) || tmin < 1 || tmax > 20 || tmax < tmin) return say(m, "Enter the minimum and maximum team size: whole numbers from 1 to 20, with the maximum not below the minimum.");
+  }
+  const wasEdit = !!kEditing; btn.disabled = true;
+  try {
+    const ref = wasEdit ? doc(db, "competitions", kEditing.id) : doc(collection(db, "competitions"));
+    for (let i = 0; i < kImgs.length; i++) {
+      const x = kImgs[i]; say(m, `Saving photo ${i + 1} of ${kImgs.length}...`, "ok");
+      if (x.id) { if (x.order !== i) await updateDoc(doc(db, "competitions", ref.id, "images", x.id), { order: i }); }
+      else { const r = await addDoc(collection(db, "competitions", ref.id, "images"), { data: x.data, order: i }); x.id = r.id; }
+      x.order = i;
+    }
+    const cover = kImgs.length ? await packImage(kImgs[0].data, 480, 90000) : "";
+    const data = { title, description, categories, date, time, location: loc, link, cover, imageCount: kImgs.length, mode: kMode, minTeam: tmin, maxTeam: tmax };
+    if (wasEdit) await updateDoc(ref, data); else await setDoc(ref, { ...data, createdAt: serverTimestamp() });
+    for (const id of kOrig.filter(id => !kImgs.some(x => x.id === id))) await deleteDoc(doc(db, "competitions", ref.id, "images", id));
+    resetForm(); say(m, wasEdit ? "Changes saved." : "Competition published.", "ok"); await loadComps();
+  } catch (err) { console.error(err); say(m, adminErr(err)); }
+  finally { btn.disabled = false; }
+});
+function drawCompAdmin(){
+  const box = $("kList"); box.textContent = "";
+  if (!comps.length) { box.appendChild(el("p", "empty", "Nothing posted yet.")); return; }
+  sortComps(comps).forEach(c => {
+    const d = el("div", "item"), t = el("b", null, c.title); t.dir = "auto";
+    d.append(t, el("div", "meta", `${fmtDay(c.date)} · ${c.mode === "team" ? "Teams of " + sizeText(c) : "Individual"} · ${(c.categories || []).join(", ")}`));
+    const row = el("div"); row.style.marginTop = "10px";
+    const eb = el("button", "sm", "Edit"); eb.type = "button"; eb.onclick = () => startEdit(c);
+    const db_ = el("button", "sm del", "Delete"); db_.type = "button"; db_.onclick = () => removeComp(c);
+    row.append(eb, db_); d.appendChild(row); box.appendChild(d);
+  });
+}
+async function removeComp(c){
+  if (!confirm(`Delete the competition "${c.title}" and all its photos?`)) return;
+  try {
+    const s = await getDocs(collection(db, "competitions", c.id, "images"));
+    if (!s.empty) { const b = writeBatch(db); s.docs.forEach(d => b.delete(d.ref)); await b.commit(); }
+    await deleteDoc(doc(db, "competitions", c.id));
+    if (kEditing && kEditing.id === c.id) resetForm();
+    loadComps();
+  } catch (err) { console.error(err); say($("kMsg"), adminErr(err)); }
+}
+// ---------- Competition participation mode (admin form) ----------
+function drawKMode(){
+  document.querySelectorAll("#kMode button").forEach(b => b.setAttribute("aria-pressed", b.dataset.m === kMode));
+  $("kTeamSize").classList.toggle("hidden", kMode !== "team");
+}
+document.querySelectorAll("#kMode button").forEach(b => b.addEventListener("click", () => { kMode = b.dataset.m; drawKMode(); }));
+
+// ---------- Teams ----------
+const TEAM_GAP_MS = 2 * 60 * 1000;   // one message per member every 2 minutes
+const enc = encodeURIComponent;
+const teamsCol = cid => collection(db, "competitions", cid, "teams");
+const teamRef = (cid, tid) => doc(db, "competitions", cid, "teams", tid);
+const memberRef = (cid, uid) => doc(db, "competitions", cid, "members", uid);
+const reqRef = (cid, tid, uid) => doc(db, "competitions", cid, "teams", tid, "requests", uid);
+const sizeText = c => c.minTeam === c.maxTeam ? String(c.maxTeam) : `${c.minTeam} to ${c.maxTeam}`;
+const spotsLeft = t => Math.max(0, (t.max || 0) - (t.memberIds || []).length);
+const spotsText = t => { const n = spotsLeft(t); return n === 0 ? "Team is full" : n === 1 ? "1 spot left" : `${n} spots left`; };
+const teamErr = (err, text) => err.code === "permission-denied" ? text : errText(err);
+const teamIcon = el => { el.insertAdjacentHTML("beforeend", icon("users", 40)); };
+
+// --- Teams of one competition ---
+let tsTok = 0, tsComp = null, tsMine = null, teamPhoto = "";
+function teamCard(t, cid){
+  const a = el("a", "cc tm"); a.href = `#team/${enc(cid)}/${enc(t.id)}`;
+  const th = el("div", "th");
+  if (/^data:image\//.test(t.photo || "")) { const im = el("img"); im.src = t.photo; im.alt = ""; im.loading = "lazy"; th.appendChild(im); } else teamIcon(th);
+  const bd = el("div", "bd"), h = el("h2", "serif", t.name); h.dir = "auto";
+  const f = el("div", "facts"), full = spotsLeft(t) === 0;
+  f.append(el("span", "st " + (full ? "end" : "up"), spotsText(t)), fact("users", `${(t.memberIds || []).length} of ${t.max} members`), fact("user", "By " + t.ownerName));
+  bd.append(h, f);
+  if (t.description) { const p = el("p", "ex", t.description); p.dir = "auto"; bd.appendChild(p); }
+  a.append(th, bd); return a;
+}
+async function openTeams(cid){
+  const tok = ++tsTok, m = $("tsMsg");
+  $("tsBack").href = "#competition/" + enc(cid);
+  $("tsBody").classList.add("hidden"); say(m, "Loading...", "ok");
+  try {
+    const cs = await getDoc(doc(db, "competitions", cid));
+    if (tok !== tsTok) return;
+    if (!cs.exists()) return say(m, "This competition was not found. It may have been removed.");
+    const c = { id: cs.id, ...cs.data() };
+    if (c.mode !== "team") return say(m, "This competition is individual, so it has no teams.", "ok");
+    const [ts, ms] = await Promise.all([getDocs(query(teamsCol(cid), orderBy("createdAt", "desc"), limit(100))), getDoc(memberRef(cid, currentUser.uid))]);
+    if (tok !== tsTok) return;
+    tsComp = c; tsMine = ms.exists() ? ms.data().teamId : null;
+    const list = ts.docs.map(d => ({ id: d.id, ...d.data() })), mine = list.find(t => t.id === tsMine);
+    say(m, "", "ok");
+    $("tsSub").textContent = `${c.title}. Team size: ${sizeText(c)} members.`;
+    $("tsCreate").classList.toggle("hidden", !!tsMine);
+    const note = $("tsNote"); note.textContent = "";
+    if (tsMine) { note.append("You are in "); const a = el("a", "link", mine ? mine.name : "a team"); a.href = `#team/${enc(cid)}/${enc(tsMine)}`; note.append(a, " in this competition."); }
+    const box = $("tsList"); box.textContent = "";
+    if (!list.length) box.appendChild(el("p", "empty", "No teams yet. Be the first to create one."));
+    list.forEach(t => box.appendChild(teamCard(t, cid)));
+    $("tsBody").classList.remove("hidden");
+  } catch (err) { console.error(err); if (tok === tsTok) say(m, errText(err)); }
+}
+
+// Create a team
+function resetTeamDlg(){
+  teamPhoto = ""; $("teamForm").reset(); $("tdPrev").classList.add("hidden"); $("tdPrev").removeAttribute("src");
+  say($("tdMsg"), "", "ok"); $("tdSubmit").disabled = false;
+}
+$("tsCreate").addEventListener("click", () => { resetTeamDlg(); $("teamDlg").showModal(); });
+$("tdCancel").addEventListener("click", () => $("teamDlg").close());
+$("tdPhotoBtn").addEventListener("click", () => $("tdFile").click());
+$("tdFile").addEventListener("change", async e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  const m = $("tdMsg");
+  if (!f.type.startsWith("image/")) return say(m, "Choose an image file.");
+  try { teamPhoto = await packImage(f, 600, 120000); $("tdPrev").src = teamPhoto; $("tdPrev").classList.remove("hidden"); say(m, "", "ok"); }
+  catch (err) { console.error(err); say(m, "Could not read this photo. Try a JPG or PNG."); }
+});
+$("teamForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const m = $("tdMsg"), name = $("tdName").value.trim().replace(/\s+/g, " "), description = $("tdDesc").value.trim(), c = tsComp;
+  if (!c) return;
+  if (name.length < 3) return say(m, "Enter the team name (3+ characters).");
+  $("tdSubmit").disabled = true; say(m, "Creating the team...", "ok");
+  try {
+    const uid = currentUser.uid, ref = doc(teamsCol(c.id)), b = writeBatch(db);
+    b.set(ref, { name, description, photo: teamPhoto, ownerUid: uid, ownerName: profile.fullName, max: c.maxTeam, memberIds: [uid], members: [{ uid, name: profile.fullName, school: profile.school }], createdAt: serverTimestamp() });
+    b.set(memberRef(c.id, uid), { teamId: ref.id });
+    await b.commit();
+    $("teamDlg").close(); location.hash = `#team/${enc(c.id)}/${enc(ref.id)}`;
+  } catch (err) { console.error(err); say(m, teamErr(err, "The team was not created. You may already be in a team in this competition, or the latest Firestore rules are not published.")); }
+  finally { $("tdSubmit").disabled = false; }
+});
+
+// --- One team ---
+let tmTok = 0, tmUnsubs = [], tm = null, tcTick = null, tcMidT = null, tcMsgs = [], tcLast = 0;
+function stopTeam(){
+  tmTok++; tmUnsubs.forEach(u => u()); tmUnsubs = []; tm = null;
+  clearInterval(tcTick); clearTimeout(tcMidT); tcMsgs = []; tcLast = 0;
+  $("tcList").querySelectorAll(".cmsg").forEach(n => n.remove());
+}
+async function openTeam(cid, tid){
+  stopTeam();
+  const tok = tmTok, m = $("tmMsg");
+  $("tmBack").href = `#competition/${enc(cid)}/teams`;
+  $("tmBody").classList.add("hidden"); say($("tmErr"), "", "ok"); say(m, "Loading...", "ok");
+  let comp, mine;
+  try {
+    const [cs, ms] = await Promise.all([getDoc(doc(db, "competitions", cid)), getDoc(memberRef(cid, currentUser.uid))]);
+    if (tok !== tmTok) return;
+    if (!cs.exists()) return say(m, "This competition was not found. It may have been removed.");
+    comp = { id: cs.id, ...cs.data() }; mine = ms.exists() ? ms.data().teamId : null;
+  } catch (err) { console.error(err); if (tok === tmTok) say(m, errText(err)); return; }
+  tm = { cid, tid, comp, mine, team: null, reqs: [], myReq: null, chatOn: false, reqOn: false, myReqOn: false, cancelled: false, notice: "", chatUnsub: null };
+  tmUnsubs.push(onSnapshot(teamRef(cid, tid), snap => {
+    if (tok !== tmTok) return;
+    if (!snap.exists()) { tm.team = null; stopTeamChat(); $("tmBody").classList.add("hidden"); say(m, "This team no longer exists. It may have been disbanded.", "ok"); return; }
+    const t = tm.team = { id: snap.id, ...snap.data() }, uid = currentUser.uid;
+    const member = t.memberIds.includes(uid), owner = t.ownerUid === uid;
+    if (member) tm.mine = t.id;
+    if ((member || isAdmin) && !tm.chatOn) startTeamChat();
+    if (!(member || isAdmin) && tm.chatOn) stopTeamChat();
+    if (owner && !tm.reqOn) startReqs();
+    if (!owner && !tm.myReqOn) startMyReq();
+    drawTeam();
+  }, err => { console.error(err); if (tok === tmTok) say(m, errText(err)); }));
+}
+function startReqs(){
+  const { cid, tid } = tm; tm.reqOn = true;
+  tmUnsubs.push(onSnapshot(collection(teamRef(cid, tid), "requests"), snap => {
+    if (!tm) return;
+    tm.reqs = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.createdAt?.toMillis?.() ?? 0) - (b.createdAt?.toMillis?.() ?? 0));
+    drawTeam();
+  }, err => console.error(err)));
+}
+function startMyReq(){
+  const { cid, tid } = tm; tm.myReqOn = true;
+  tmUnsubs.push(onSnapshot(reqRef(cid, tid, currentUser.uid), snap => {
+    if (!tm) return;
+    const prev = tm.myReq; tm.myReq = snap.exists() ? snap.data() : null;
+    if (prev && prev.status === "pending" && !tm.myReq && !tm.cancelled && !(tm.team && tm.team.memberIds.includes(currentUser.uid))) tm.notice = "Your last request was not accepted.";
+    drawTeam();
+  }, err => { console.error(err); if (tm) { tm.myReq = null; drawTeam(); } }));
+}
+
+function drawTeam(){
+  if (!tm || !tm.team) return;
+  const t = tm.team, c = tm.comp, uid = currentUser.uid;
+  const member = t.memberIds.includes(uid), owner = t.ownerUid === uid, full = spotsLeft(t) === 0;
+  $("tmMsg").textContent = ""; $("tmBody").classList.remove("hidden");
+
+  const ph = $("tmPhoto"); ph.textContent = "";
+  if (/^data:image\//.test(t.photo || "")) { const im = el("img"); im.src = t.photo; im.alt = ""; ph.appendChild(im); } else teamIcon(ph);
+  $("tmTitle").textContent = t.name;
+  $("tmSub").textContent = ""; const ca = el("a", "link", c.title); ca.href = `#competition/${enc(c.id)}`; ca.dir = "auto";
+  $("tmSub").append("Team in ", ca);
+  const f = $("tmFacts"); f.textContent = "";
+  f.append(el("span", "st " + (full ? "end" : "up"), spotsText(t)), fact("users", `${t.memberIds.length} of ${t.max} members`), fact("user", "Created by " + t.ownerName));
+  $("tmDesc").textContent = t.description || "";
+  $("tmMin").textContent = t.memberIds.length < c.minTeam ? `The competition needs at least ${c.minTeam} members per team (${c.minTeam - t.memberIds.length} more needed).` : "";
+
+  // members (the owner also sees the details each student sent with the request)
+  const ml = $("tmMembers"); ml.textContent = "";
+  const byUid = Object.fromEntries(tm.reqs.map(r => [r.id, r]));
+  t.members.forEach(mb => {
+    const li = el("li"), left = el("div"), nm = el("b", null, mb.name); nm.dir = "auto";
+    left.append(nm, el("div", "meta", (mb.school || "") + (mb.uid === t.ownerUid ? " · Owner" : "")));
+    const r = byUid[mb.uid];
+    if (owner && r && mb.uid !== uid) { const d = el("div", "meta", `ID ${r.studentId} · ${r.phone}`); left.appendChild(d); }
+    li.appendChild(left);
+    if (owner && mb.uid !== uid) { const b = el("button", "sm del", "Remove"); b.type = "button"; b.onclick = () => removeMember(mb); li.appendChild(b); }
+    ml.appendChild(li);
+  });
+
+  // actions
+  const act = $("tmActions"); act.textContent = "";
+  const addBtn = (txt, cls, fn) => { const b = el("button", "btn " + cls, txt); b.type = "button"; b.onclick = fn; act.appendChild(b); };
+  const note = txt => act.appendChild(el("p", null, txt));
+  if (member && !owner) addBtn("Leave team", "plain", leaveTeam);
+  if (owner) addBtn("Disband team", "plain", disbandTeam);
+  if (!member && isAdmin) addBtn("Delete team (admin)", "plain", disbandTeam);
+  if (!member) {
+    if (tm.notice) note(tm.notice);
+    if (tm.myReq && tm.myReq.status === "pending") { note("Your request was sent. The team owner will accept or decline it."); addBtn("Cancel request", "plain", cancelRequest); }
+    else if (full) note("Team is full.");
+    else if (tm.mine && tm.mine !== t.id) note("You are already in another team in this competition.");
+    else addBtn("Request participation", "", openJoin);
+  }
+  $("tmActCard").classList.toggle("hidden", !act.children.length);
+
+  // join requests (owner only)
+  $("tmReqCard").classList.toggle("hidden", !owner);
+  if (owner) {
+    const pend = tm.reqs.filter(r => r.status === "pending"), box = $("tmReqs"); box.textContent = "";
+    $("tmReqCount").textContent = pend.length ? ` (${pend.length})` : "";
+    if (!pend.length) box.appendChild(el("p", "empty", "No pending requests."));
+    pend.forEach(r => {
+      const d = el("div", "item"), n = el("b", null, r.name); n.dir = "auto";
+      const dl = el("dl", "dl"); dl.style.marginTop = "8px";
+      [["Student ID", r.studentId], ["School", r.school], ["Phone", r.phone], ["Sent", fmt(r.createdAt)]].forEach(([k, v]) => { dl.append(el("dt", null, k)); const dd = el("dd", null, v || ""); dd.dir = "auto"; dl.appendChild(dd); });
+      const why = el("p", "body", r.reason); why.dir = "auto";
+      const row = el("div", "reqrow"), ok = el("button", "btn", "Accept"), no = el("button", "btn plain", "Decline");
+      ok.type = no.type = "button"; ok.disabled = full; ok.onclick = () => acceptReq(r); no.onclick = () => declineReq(r);
+      row.append(ok, no); d.append(n, dl, el("div", "meta", "Why they want to join:"), why, row); box.appendChild(d);
+    });
+  }
+
+  // chat (members, and admins)
+  $("tcCard").classList.toggle("hidden", !(member || isAdmin));
+  $("tcForm").classList.toggle("hidden", !member);
+}
+
+async function acceptReq(r){
+  const t = tm.team, { cid, tid } = tm;
+  if (spotsLeft(t) < 1) return say($("tmErr"), "The team is full.");
+  say($("tmErr"), "", "ok");
+  try {
+    const b = writeBatch(db);
+    b.update(teamRef(cid, tid), { memberIds: [...t.memberIds, r.id], members: [...t.members, { uid: r.id, name: r.name, school: r.school }] });
+    b.update(reqRef(cid, tid, r.id), { status: "accepted" });
+    b.set(memberRef(cid, r.id), { teamId: tid });
+    await b.commit();
+  } catch (err) { console.error(err); say($("tmErr"), teamErr(err, "Could not accept this request. The student may already have joined another team in this competition. You can decline the request.")); }
+}
+async function declineReq(r){
+  say($("tmErr"), "", "ok");
+  try { await deleteDoc(reqRef(tm.cid, tm.tid, r.id)); }
+  catch (err) { console.error(err); say($("tmErr"), teamErr(err, "Could not decline this request.")); }
+}
+async function dropMember(uid){
+  const t = tm.team, { cid, tid } = tm, b = writeBatch(db);
+  b.update(teamRef(cid, tid), { memberIds: t.memberIds.filter(x => x !== uid), members: t.members.filter(x => x.uid !== uid) });
+  b.delete(memberRef(cid, uid)); b.delete(reqRef(cid, tid, uid));
+  await b.commit();
+}
+async function removeMember(mb){
+  if (!confirm(`Remove ${mb.name} from the team?`)) return;
+  say($("tmErr"), "", "ok");
+  try { await dropMember(mb.uid); } catch (err) { console.error(err); say($("tmErr"), teamErr(err, "Could not remove this member.")); }
+}
+async function leaveTeam(){
+  if (!confirm("Leave this team?")) return;
+  const cid = tm.cid;
+  try { await dropMember(currentUser.uid); location.hash = `#competition/${enc(cid)}/teams`; }
+  catch (err) { console.error(err); say($("tmErr"), teamErr(err, "Could not leave the team.")); }
+}
+async function disbandTeam(){
+  const t = tm.team, { cid, tid } = tm;
+  if (!confirm(`Delete the team "${t.name}"? All its members will be removed from it.`)) return;
+  say($("tmErr"), "Deleting the team...", "ok");
+  try {
+    for (const sub of ["messages", "requests"]) {
+      for (;;) {
+        const s = await getDocs(query(collection(teamRef(cid, tid), sub), limit(300)));
+        if (s.empty) break;
+        const b = writeBatch(db); s.docs.forEach(d => b.delete(d.ref)); await b.commit();
+        if (s.size < 300) break;
+      }
+    }
+    const b = writeBatch(db);
+    t.memberIds.forEach(u => b.delete(memberRef(cid, u)));
+    b.delete(teamRef(cid, tid));
+    await b.commit();
+    location.hash = `#competition/${enc(cid)}/teams`;
+  } catch (err) { console.error(err); say($("tmErr"), teamErr(err, "Could not delete the team.")); }
+}
+
+// Request participation
+function openJoin(){ $("jnReason").value = ""; say($("jnMsg"), "", "ok"); $("joinDlg").showModal(); }
+$("jnCancel").addEventListener("click", () => $("joinDlg").close());
+$("joinForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const reason = $("jnReason").value.trim(), m = $("jnMsg");
+  if (!tm || !tm.team) return;
+  if (reason.length < 5) return say(m, "Tell the team owner why you want to join (at least 5 characters).");
+  try {
+    await setDoc(reqRef(tm.cid, tm.tid, currentUser.uid), { uid: currentUser.uid, name: profile.fullName, studentId: profile.studentId, school: profile.school, phone: profile.phone, reason, status: "pending", createdAt: serverTimestamp() });
+    tm.cancelled = false; tm.notice = ""; $("joinDlg").close();
+  } catch (err) { console.error(err); say(m, teamErr(err, "The request was not sent. The team may be full, or you may already be in a team in this competition.")); }
+});
+async function cancelRequest(){
+  tm.cancelled = true;
+  try { await deleteDoc(reqRef(tm.cid, tm.tid, currentUser.uid)); }
+  catch (err) { console.error(err); say($("tmErr"), teamErr(err, "Could not cancel the request.")); }
+}
+
+// --- Team chat: cleared every day at midnight (Cairo time), one message per member every 2 minutes ---
+const tcCol = () => collection(teamRef(tm.cid, tm.tid), "messages");
+function startTeamChat(){
+  const tok = tmTok; tm.chatOn = true;
+  const start = Timestamp.fromDate(cairoMidnight());
+  tm.chatUnsub = onSnapshot(query(tcCol(), where("createdAt", ">=", start), orderBy("createdAt", "asc"), limitToLast(100)),
+    snap => { tcMsgs = snap.docs.map(d => ({ id: d.id, ...d.data({ serverTimestamps: "estimate" }) })); say($("tcMsgLine"), "", "ok"); drawTeamChat(); },
+    err => { console.error(err); say($("tcMsgLine"), errText(err)); });
+  tmUnsubs.push(tm.chatUnsub);
+  purgeTeamOld(); loadTeamLimit();
+  clearTimeout(tcMidT);
+  tcMidT = setTimeout(() => { if (tok === tmTok && tm) { stopTeamChat(); startTeamChat(); } }, cairoMidnight().getTime() + 86400000 - Date.now() + 2000);
+}
+function stopTeamChat(){
+  if (!tm) return;
+  if (tm.chatUnsub) { tm.chatUnsub(); tm.chatUnsub = null; }
+  tm.chatOn = false; clearTimeout(tcMidT); clearInterval(tcTick); tcMsgs = []; drawTeamChat();
+}
+async function purgeTeamOld(){
+  try {
+    const old = await getDocs(query(tcCol(), where("createdAt", "<", Timestamp.fromDate(purgeCutoff())), limit(200)));
+    if (old.empty) return;
+    const b = writeBatch(db); old.docs.forEach(d => b.delete(d.ref)); await b.commit();
+  } catch (err) { console.warn("Old team messages were not cleaned up:", err.code || err.message); }
+}
+function drawTeamChat(){
+  const box = $("tcList"), first = !box.querySelector(".cmsg");
+  const near = box.scrollHeight - box.scrollTop - box.clientHeight < 140;
+  box.querySelectorAll(".cmsg").forEach(n => n.remove());
+  $("tcEmpty").classList.toggle("hidden", tcMsgs.length > 0 || !tm || !tm.chatOn);
+  const owner = tm && tm.team && tm.team.ownerUid === currentUser.uid;
+  tcMsgs.forEach(x => {
+    const mine = x.uid === currentUser.uid, n = el("article", "cmsg" + (mine ? " own" : ""));
+    const head = el("div", "mhead"), nm = el("b", null, x.name || "Member");
+    head.append(nm, el("span", null, fmtTime(x.createdAt && x.createdAt.toDate ? x.createdAt.toDate() : null)));
+    if (mine || owner || isAdmin) {
+      const d = el("button", "sm del", "Delete"); d.type = "button"; d.style.cssText = "margin:0 0 0 auto;padding:1px 8px;font-size:.78rem";
+      d.onclick = async () => {
+        if (!confirm("Delete this message?")) return;
+        try { await deleteDoc(doc(tcCol(), x.id)); } catch (err) { console.error(err); say($("tcMsgLine"), teamErr(err, "Could not delete the message.")); }
+      };
+      head.appendChild(d);
+    }
+    const tx = el("div", "mtext", x.text || ""); tx.dir = "auto";
+    n.append(head, tx); box.appendChild(n);
+  });
+  if (first || near) box.scrollTop = box.scrollHeight;
+}
+async function loadTeamLimit(){
+  const t = tm; if (!t) return;
+  try {
+    const s = await getDoc(doc(db, "competitions", t.cid, "teams", t.tid, "limits", currentUser.uid));
+    tcLast = s.exists() && s.data().last && s.data().last.toMillis ? s.data().last.toMillis() : 0;
+  } catch (err) { console.warn(err); }
+  updateTeamSend();
+}
+function updateTeamSend(){
+  const left = tcLast + TEAM_GAP_MS - Date.now(), b = $("tcSend"), w = $("tcWait");
+  clearInterval(tcTick);
+  if (left > 0) {
+    const s = Math.ceil(left / 1000), t = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+    b.disabled = true; w.textContent = t; w.classList.remove("hidden"); b.setAttribute("aria-label", `You can send again in ${t}`);
+    tcTick = setInterval(updateTeamSend, 1000);
+  } else { b.disabled = false; w.classList.add("hidden"); w.textContent = ""; b.setAttribute("aria-label", "Send"); }
+}
+$("tcText").addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey && !matchMedia("(pointer:coarse)").matches) { e.preventDefault(); $("tcForm").requestSubmit(); }
+});
+$("tcForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  if (!tm || !tm.team) return;
+  const m = $("tcMsgLine"), text = $("tcText").value.trim();
+  if (tcLast + TEAM_GAP_MS > Date.now()) return;
+  if (!text) return say(m, "Write a message first.");
+  $("tcSend").disabled = true; say(m, "", "ok");
+  try {
+    const { cid, tid } = tm, b = writeBatch(db);
+    b.set(doc(db, "competitions", cid, "teams", tid, "limits", currentUser.uid), { last: serverTimestamp() });
+    b.set(doc(tcCol()), { uid: currentUser.uid, name: profile.fullName, text, createdAt: serverTimestamp() });
+    await b.commit();
+    tcLast = Date.now(); $("tcText").value = "";
+  } catch (err) {
+    console.error(err);
+    say(m, teamErr(err, "The message was not sent. You can send one message every 2 minutes, and only team members can write here."));
+    await loadTeamLimit();
+  }
+  updateTeamSend();
+});
+
+drawKCats(); drawKImgs(); drawKMode();
 </script>
 </body>
 </html>
