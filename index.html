@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>STEM Collaboration</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0f1b5c;--navy2:#18297f;--ink:#1a1f36;--mute:#5b6178;--line:#d9dce6;--paper:#fafaf7;--tint:#eef0f8;--err:#a4261b;--ok:#17653d;--hdr:76px;--nav:46px;--tab:60px}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Source Sans 3',system-ui,sans-serif;font-size:17px;color:var(--ink);background:var(--paper);line-height:1.65;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+.hidden{display:none!important}
+.serif,h1,h2,h3{font-family:'Source Serif 4',Georgia,serif;font-weight:600;color:var(--navy);line-height:1.25}
+header{background:#fff;border-bottom:1px solid var(--line);height:var(--hdr)}
+.bar{max-width:1120px;margin:auto;padding:0 28px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.bar a.logo{display:flex;align-items:center;flex:none}
+.bar img{height:calc(var(--hdr)*.7);width:auto;display:block}
+.nav{display:flex;align-items:center;gap:20px;font-size:.95rem}
+.nav a,.nav button{font:inherit;color:var(--navy);background:none;border:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0}
+.nav span{color:var(--mute)}
+.appnav{background:#fff;border-bottom:1px solid var(--line);height:var(--nav)}
+.appnav .in{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;height:100%}
+.appnav a{display:flex;align-items:center;padding:0 14px;color:var(--mute);text-decoration:none;white-space:nowrap;font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px}
+.appnav a:hover{color:var(--navy)}
+.appnav a[aria-current=page]{color:var(--navy);border-bottom-color:var(--navy)}
+main{flex:1;min-width:0}
+.in{max-width:1120px;margin:auto;padding:0 28px;width:100%}
+.btn{display:inline-block;font:inherit;font-weight:600;padding:12px 28px;border:0;border-radius:3px;background:var(--navy);color:#fff;cursor:pointer;text-align:center;text-decoration:none}
+.btn:hover{background:var(--navy2)}.btn:disabled{opacity:.6;cursor:not-allowed}
+.btn.plain{background:#fff;color:var(--navy);border:1px solid #b9bed0}.btn.plain:hover{background:var(--tint)}
+.link{color:var(--navy);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+label{display:block;font-weight:600;font-size:.9rem;margin:16px 0 5px}
+input,select,textarea{width:100%;font:inherit;padding:11px 12px;border:1px solid #b9bed0;border-radius:3px;background:#fff;color:var(--ink)}
+textarea{resize:none}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--navy);border-color:var(--navy)}
+.ro{background:#f6f7fb;color:var(--mute)}
+.hint{font-size:.83rem;color:var(--mute);margin-top:4px}
+.msg-line{margin-top:14px;font-size:.92rem;min-height:1.3em}
+.msg-line.err{color:var(--err)}.msg-line.ok{color:var(--ok)}
+form .btn.full{width:100%;margin-top:24px}
+
+/* Home */
+.hero{padding-top:96px;padding-bottom:88px}
+.hero h1{font-size:clamp(2rem,4.8vw,3.5rem);letter-spacing:-.015em;max-width:15em}
+.lead{margin-top:22px;max-width:36em;color:var(--mute);font-size:1.18rem}
+.cta{margin-top:36px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.cta .btn{padding:13px 34px}
+.band{border-top:1px solid var(--line);padding:68px 0}.band.white{background:#fff}
+.two{display:grid;grid-template-columns:300px 1fr;gap:56px}
+.two h2{font-size:1.7rem}.two p+p{margin-top:16px}.two p{color:#343a56;max-width:40em}
+.three{display:grid;grid-template-columns:repeat(3,1fr);margin-top:36px}
+.three>div{padding:0 32px;border-left:1px solid var(--line)}
+.three>div:first-child{padding-left:0;border-left:0}
+.three h3{font-size:1.2rem;margin-bottom:8px}.three p{color:var(--mute);font-size:.98rem}
+.steps{list-style:none;padding:0;counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:36px}
+.steps li{counter-increment:s;border-top:2px solid var(--navy);padding-top:14px}
+.steps li::before{content:counter(s) ".";font-family:'Source Serif 4',serif;font-weight:600;color:var(--navy);display:block;font-size:1.3rem}
+.steps b{display:block;font-weight:600;margin-bottom:4px}.steps span{color:var(--mute);font-size:.97rem}
+.schools{list-style:none;padding:0;columns:3;column-gap:40px;margin-top:28px;font-size:.97rem;color:#343a56}
+.schools li{padding:5px 0;break-inside:avoid;border-bottom:1px solid #ecedf3}
+.closing{background:var(--tint);border-top:1px solid var(--line);padding:60px 0}
+.closing .in{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.closing h2{font-size:1.8rem;max-width:20em}
+.h2s{font-size:1.7rem}
+
+/* Auth */
+.auth{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - var(--hdr))}
+.side{background:var(--tint);border-right:1px solid var(--line);padding:72px 56px;display:flex;flex-direction:column;justify-content:center}
+.side>div{max-width:26em;margin-left:auto}
+.side h2{font-size:2.3rem;letter-spacing:-.01em}
+.side p{margin-top:16px;color:#46506f;font-size:1.05rem}
+.side .rule{margin-top:36px;padding-top:18px;border-top:1px solid #cdd2e6;font-size:.93rem;color:var(--mute)}
+.formcol{background:#fff;padding:48px 56px;display:flex;align-items:center}
+.formcol form{width:100%;max-width:400px}
+.formcol h2{font-size:1.6rem}
+.switch{margin-top:18px;font-size:.93rem;color:var(--mute)}
+
+/* App pages */
+.pg{padding:48px 28px 72px}
+.pg h1{font-size:2.1rem}
+.sub{color:var(--mute);margin-top:4px}
+.grid2{display:grid;grid-template-columns:1.7fr 1fr;gap:40px;margin-top:32px;align-items:start}
+.card{background:#fff;border:1px solid var(--line);padding:22px 24px}
+.card+.card{margin-top:20px}
+.card h2{font-size:1.2rem;margin-bottom:10px}
+.card p{color:var(--mute);font-size:.97rem}
+.card .btn{margin-top:16px}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:.95rem}
+.dl dt{color:var(--mute)}.dl dd{overflow-wrap:anywhere}
+.item{padding:16px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item b{font-weight:600;color:var(--navy);font-family:'Source Serif 4',Georgia,serif;font-size:1.08rem}
+.meta{font-size:.85rem;color:var(--mute)}
+.item p.body{margin-top:6px;white-space:pre-wrap;overflow-wrap:anywhere;color:#343a56}
+.item .btn{margin-top:10px;padding:7px 16px;font-size:.92rem}
+.empty{padding:18px 0;color:var(--mute)}
+.subtabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin:20px 0 0}
+.subtabs button{font:inherit;font-weight:500;background:none;border:0;padding:10px 16px;color:var(--mute);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.subtabs button[aria-selected=true]{color:var(--navy);border-bottom-color:var(--navy)}
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:24px 0 14px}
+.tools input,.tools select{width:auto;min-width:200px;padding:9px 12px}
+.tools .count{margin-left:auto;color:var(--mute);font-size:.93rem}
+.tbl{overflow-x:auto;background:#fff;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid #ecedf3;white-space:nowrap}
+th{font-weight:600;color:var(--navy);background:#f6f7fb;font-size:.88rem}
+td.wrap{white-space:normal;min-width:220px}
+tr:last-child td{border-bottom:0}
+.sm{font:inherit;font-size:.88rem;padding:5px 12px;border:1px solid #b9bed0;border-radius:3px;background:#fff;color:var(--navy);cursor:pointer;margin-right:6px}
+.sm:hover{background:var(--tint)}.sm.del{color:var(--err);border-color:#e0b4af}.sm.del:hover{background:#fbeeec}
+.box{background:#fff;border:1px solid var(--line);padding:24px;max-width:560px;margin-top:24px}
+.box h2{font-size:1.3rem}
+dialog{border:1px solid var(--line);border-top:3px solid var(--navy);padding:26px;width:min(460px,92vw);max-height:92vh;overflow:auto;margin:auto}
+dialog::backdrop{background:rgba(20,26,61,.4)}
+dialog .row{display:flex;gap:10px;margin-top:22px}
+dialog .row .btn{flex:1;padding:12px}
+dialog.lb{width:auto;max-width:96vw;padding:8px;border-top-width:1px;background:#fff}
+dialog.lb img{display:block;max-width:92vw;max-height:86vh}
+
+/* Community chat */
+#vCommunity{padding-top:24px;padding-bottom:20px}
+#vCommunity h1{font-size:1.7rem}
+.chat{display:flex;flex-direction:column;margin-top:14px;background:#fff;border:1px solid var(--line);height:calc(100vh - var(--hdr) - var(--nav) - 150px);height:calc(100dvh - var(--hdr) - var(--nav) - 150px);min-height:440px}
+.chead{padding:10px 18px;border-bottom:1px solid var(--line);font-size:.88rem;color:var(--mute)}.chead b{color:var(--navy);font-weight:600}
+.clist{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:10px;background:var(--paper)}
+.cempty{margin:auto;text-align:center;color:var(--mute);max-width:26em}
+.cmsg{max-width:min(560px,88%);align-self:flex-start;background:#fff;border:1px solid var(--line);padding:9px 12px;border-radius:3px;cursor:pointer}
+.cmsg.own{align-self:flex-end;background:var(--tint);border-color:#cdd2e6}
+.mhead{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:.8rem;color:var(--mute)}
+.mhead b{color:var(--navy);font-weight:600;font-size:.92rem}
+.mtext{white-space:pre-wrap;overflow-wrap:anywhere}
+.mimg{display:block;max-width:100%;max-height:300px;margin-top:6px;border:1px solid var(--line);cursor:zoom-in}
+.mlink{margin-top:8px;padding:7px 16px;font-size:.92rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rx{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.rx:empty{display:none}
+.chip{font:inherit;font-size:.85rem;padding:0 9px;border:1px solid #b9bed0;border-radius:12px;background:#fff;cursor:pointer;line-height:1.7}
+.chip.mine{background:var(--tint);border-color:var(--navy)}
+.pick{display:none;gap:2px;flex-wrap:wrap;align-items:center;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+.cmsg.open .pick{display:flex}
+.pick button.em{font-size:1.2rem;background:none;border:1px solid transparent;border-radius:4px;padding:1px 6px;cursor:pointer;line-height:1.5}
+.pick button.em:hover{background:var(--tint)}
+.pick .sm{margin:0 0 0 auto}
+.composer{border-top:1px solid var(--line);padding:12px 14px 10px;background:#fff}
+.cbox{display:flex;align-items:flex-end;gap:2px;border:1px solid #b9bed0;border-radius:3px;background:#fff;padding:4px}
+.cbox:focus-within{outline:2px solid var(--navy);border-color:var(--navy)}
+.cbox textarea{flex:1;min-width:0;border:0;background:transparent;padding:9px 6px;height:42px;min-height:42px;max-height:132px;line-height:1.45;overflow-y:auto}
+.cbox textarea:focus{outline:0}
+.ibtn{flex:none;width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;background:none;border:0;border-radius:3px;color:var(--mute);cursor:pointer;padding:0}
+.ibtn:hover,.ibtn[aria-expanded=true]{background:var(--tint);color:var(--navy)}
+.amenu-wrap{position:relative;flex:none}
+.amenu{position:absolute;left:-4px;bottom:calc(100% + 12px);min-width:196px;background:#fff;border:1px solid #b9bed0;border-radius:4px;box-shadow:0 10px 28px rgba(15,27,92,.18);padding:4px;z-index:20}
+.amenu button{display:flex;align-items:center;gap:12px;width:100%;font:inherit;background:none;border:0;padding:11px 12px;color:var(--ink);cursor:pointer;text-align:left;border-radius:3px}
+.amenu button:hover,.amenu button:focus-visible{background:var(--tint)}
+.amenu .ic{color:var(--navy)}
+.send{flex:none;width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:3px;background:var(--navy);color:#fff;cursor:pointer;padding:0}
+.send:hover{background:var(--navy2)}.send:disabled{background:#a9afcb;cursor:not-allowed}
+.cwait{align-self:center;font-size:.85rem;color:var(--mute);font-variant-numeric:tabular-nums;padding:0 6px;white-space:nowrap}
+.attach{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.attach img{height:56px;width:auto;max-width:96px;object-fit:cover;border:1px solid var(--line)}
+.linkrow{display:flex;align-items:center;gap:8px;margin-bottom:8px;border:1px solid #b9bed0;border-radius:3px;background:#fff;padding:0 2px 0 12px;color:var(--navy)}
+.linkrow:focus-within{outline:2px solid var(--navy);border-color:var(--navy)}
+.linkrow input{border:0;padding:9px 0;min-width:0;flex:1}
+.linkrow input:focus{outline:0}
+.ic{flex:none;display:block}
+.cnote{font-size:.78rem;color:var(--mute);margin-top:8px}
+
+/* School dropdown */
+.dd{position:relative}
+.dd-btn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;font:inherit;text-align:left;padding:11px 12px;border:1px solid #b9bed0;border-radius:3px;background:#fff;color:var(--ink);cursor:pointer}
+.dd-btn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dd-btn span.ph{color:#757b92}
+.dd-btn .ic{color:var(--mute);transition:transform .15s}
+.dd.open .dd-btn{border-color:var(--navy);outline:2px solid var(--navy)}
+.dd.open .dd-btn .ic{transform:rotate(180deg)}
+.dd-back{display:none}
+.dd-panel{position:absolute;z-index:40;left:0;right:0;top:calc(100% + 4px);min-width:min(100%,280px);background:#fff;border:1px solid #b9bed0;border-radius:4px;box-shadow:0 12px 30px rgba(15,27,92,.16);overflow:hidden}
+.dd-search{display:flex;align-items:center;gap:8px;padding:0 12px;border-bottom:1px solid var(--line);color:var(--mute)}
+.dd-search input{border:0;padding:12px 0;background:transparent;min-width:0}
+.dd-search input:focus{outline:0}
+.dd-list{list-style:none;padding:4px;max-height:264px;overflow-y:auto;overscroll-behavior:contain}
+.dd-opt{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 10px;border-radius:3px;cursor:pointer;font-size:.97rem;line-height:1.35}
+.dd-opt.act{background:var(--tint)}
+.dd-opt.sel{color:var(--navy);font-weight:600}
+.dd-none{padding:14px 10px;color:var(--mute);font-size:.95rem}
+.tools .dd{min-width:230px}
+
+/* Bottom tab bar (phones) */
+.tabbar{display:none}
+.tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:var(--tab);color:var(--mute);text-decoration:none;font-size:.72rem;font-weight:500;line-height:1;-webkit-tap-highlight-color:transparent}
+.tabbar a[aria-current=page]{color:var(--navy);box-shadow:inset 0 2px 0 var(--navy)}
+.nav .ic{display:none}
+
+footer{border-top:1px solid var(--line);background:#fff;padding:18px 28px;text-align:center;font-size:.88rem;color:var(--mute)}
+
+@media(max-width:860px){
+  :root{--hdr:64px}
+  .bar{padding:0 16px}.in{padding-left:20px;padding-right:20px}
+  .nav{gap:14px}
+  .hero{padding-top:44px;padding-bottom:48px}.band{padding:44px 0}
+  .lead{font-size:1.05rem}
+  .two{grid-template-columns:1fr;gap:14px}.three,.steps{grid-template-columns:1fr}
+  .three>div{padding:18px 0;border-left:0;border-top:1px solid var(--line)}.three>div:first-child{border-top:0}
+  .schools{columns:1}
+  .auth{grid-template-columns:1fr}
+  .side{padding:26px 20px;border-right:0;border-bottom:1px solid var(--line)}
+  .side>div{margin:0;max-width:none}.side h2{font-size:1.5rem}.side p{font-size:1rem;margin-top:8px}.side .rule{display:none}
+  .formcol{padding:28px 20px}
+  .pg{padding:30px 20px 56px}.pg h1{font-size:1.7rem}
+  .grid2{grid-template-columns:1fr;gap:28px}
+  .closing{padding:40px 0}.closing h2{font-size:1.5rem}.h2s,.two h2{font-size:1.45rem}
+  #vCommunity{padding:16px 12px 12px}
+  #vCommunity h1{font-size:1.4rem}
+  .appnav{display:none}
+  .tabbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+  body.has-tabs{padding-bottom:calc(var(--tab) + env(safe-area-inset-bottom))}
+  body.has-tabs[data-view=vCommunity] footer{display:none}
+  .chat{margin-top:0;height:calc(100vh - var(--hdr) - var(--tab) - 28px);height:calc(100dvh - var(--hdr) - var(--tab) - env(safe-area-inset-bottom) - 28px);min-height:340px}
+  .cmsg{max-width:92%}
+}
+@media(max-width:700px){
+  #whoId{display:none}
+  .nav .ic{display:block}
+  #logoutBtn{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;color:var(--navy);text-decoration:none}
+  #logoutBtn:hover{background:var(--tint)}
+  #logoutBtn span{display:none}
+  .composer{padding:8px 8px 6px}
+  .cnote{margin-top:6px}
+  .tools .dd{width:100%;min-width:0}
+  .amenu{min-width:210px}
+  .dd-back{position:fixed;inset:0;background:rgba(20,26,61,.42);z-index:199}
+  .dd.open .dd-back{display:block}
+  .dd-panel{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:200;border:0;border-radius:14px 14px 0 0;max-height:76vh;max-height:76dvh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
+  .dd-list{max-height:none;flex:1}
+  .dd-opt{padding:13px 10px}
+  .tools input,.tools select{width:100%;min-width:0}
+  .tools .count{margin-left:0}
+  .tbl{border:0;background:none;overflow:visible}
+  table,tbody,tr,td{display:block}
+  thead{display:none}
+  tr{background:#fff;border:1px solid var(--line);margin-bottom:12px;padding:6px 0}
+  td{display:flex;justify-content:space-between;gap:16px;border:0;padding:6px 14px;white-space:normal;text-align:right;overflow-wrap:anywhere}
+  td::before{content:attr(data-label);font-weight:600;color:var(--navy);text-align:left;flex:none}
+  td[data-label=""]{justify-content:flex-start;padding-top:10px}
+  td[data-label=""]::before{content:none}
+  td.wrap{min-width:0}
+  .sm{padding:9px 16px}
+  .cta .btn{flex:1 1 100%}
+  .chead .long{display:none}
+  .chead{padding:8px 12px}
+  #vCommunity h1{display:none}
+  #vCommunity{padding-top:10px!important}
+}
+@media(max-width:400px){body{font-size:16px}.cta{gap:16px}.bar img{max-width:46vw}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a class="logo" href="#" aria-label="STEM Collaboration home"><img src="logo.png" alt="STEM Collaboration"></a>
+    <nav class="nav">
+      <a href="#signin" id="navSignin">Sign in</a>
+      <span id="whoId" class="hidden"></span>
+      <button id="logoutBtn" class="hidden" aria-label="Sign out"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg><span>Sign out</span></button>
+    </nav>
+  </div>
+</header>
+
+<nav class="appnav hidden" id="appnav" aria-label="Main"><div class="in">
+  <a href="#" data-v="vDash">Dashboard</a>
+  <a href="#community" data-v="vCommunity">Your school community</a>
+  <a href="#admin" data-v="vAdmin" id="navAdmin" class="hidden">Admin</a>
+</div></nav>
+
+
+<nav class="tabbar hidden" id="tabbar" aria-label="Main">
+  <a href="#" data-v="vDash"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Dashboard</span></a>
+  <a href="#community" data-v="vCommunity"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><span>Community</span></a>
+  <a href="#admin" data-v="vAdmin" id="tabAdmin" class="hidden"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span>Admin</span></a>
+</nav>
+
+<!-- Home -->
+<main id="vHome" class="hidden">
+  <section class="in hero">
+    <h1>A shared workspace for Egypt's STEM students.</h1>
+    <p class="lead">STEM Collaboration brings students from every STEM school in Egypt onto one platform, so projects, questions and ideas can move between campuses.</p>
+    <div class="cta"><a class="btn" href="#signin">Sign in</a><a class="link" href="#register">Create an account</a></div>
+  </section>
+  <section class="band white"><div class="in two">
+    <h2>Why this platform exists</h2>
+    <div>
+      <p>STEM schools teach through research, inquiry and capstone projects. The work is ambitious, but each campus mostly works on its own.</p>
+      <p>STEM Collaboration connects those campuses. A team in Alexandria can learn from a project built in Assiut, and a student in Sharqia can ask a question that someone in Giza has already solved.</p>
+    </div>
+  </div></section>
+  <section class="band"><div class="in">
+    <h2 class="serif h2s">What it is built for</h2>
+    <div class="three">
+      <div><h3>Your school community</h3><p>A live chat for the students of your own school, with photos, links and emoji reactions.</p></div>
+      <div><h3>Announcements</h3><p>Important news from the platform team, shown on your dashboard as soon as you sign in.</p></div>
+      <div><h3>Finding teammates</h3><p>Meet students across schools who share your interests, for competitions, research and capstone work.</p></div>
+    </div>
+  </div></section>
+  <section class="band white"><div class="in">
+    <h2 class="serif h2s">Getting started</h2>
+    <ol class="steps">
+      <li><b>Get your student ID</b><span>Your school issues it. It is the only ID the platform uses.</span></li>
+      <li><b>Create your account</b><span>Enter your full name, choose your school, add your student ID and phone number, and set a password.</span></li>
+      <li><b>Sign in</b><span>From then on, sign in with your student ID and password.</span></li>
+    </ol>
+  </div></section>
+  <section class="band"><div class="in">
+    <h2 class="serif h2s">Open to every STEM school</h2>
+    <ul class="schools" id="schoolList"></ul>
+  </div></section>
+  <section class="closing"><div class="in">
+    <h2>Ready to join your school's community?</h2>
+    <a class="btn" href="#signin">Sign in</a>
+  </div></section>
+</main>
+
+<!-- Auth -->
+<main id="vAuth" class="auth hidden">
+  <section class="side"><div>
+    <div id="txtSignin"><h2>Welcome back.</h2><p>Sign in with your student ID to continue to your workspace.</p></div>
+    <div id="txtRegister" class="hidden"><h2>Join your school's community.</h2><p>Use the student ID issued by your school. Your account is linked to your name, your school and your phone number.</p></div>
+    <p class="rule">Having trouble with your student ID? Ask your school administration.</p>
+  </div></section>
+  <section class="formcol">
+    <form id="loginForm" novalidate>
+      <h2>Sign in</h2>
+      <label for="lId">Student ID</label>
+      <input id="lId" placeholder="your student ID" autocomplete="username" autocapitalize="none" required>
+      <label for="lPass">Password</label>
+      <input id="lPass" type="password" autocomplete="current-password" required>
+      <button class="btn full" type="submit">Sign in</button>
+      <div class="msg-line" id="lMsg" role="alert"></div>
+      <p class="switch">New here? <a class="link" href="#register">Create an account</a></p>
+    </form>
+    <form id="regForm" class="hidden" novalidate>
+      <h2>Create an account</h2>
+      <label for="rName">Full name (three names)</label>
+      <input id="rName" dir="auto" autocomplete="name" required>
+      <label for="rSchool">School</label>
+      <select id="rSchool" required><option value="">Select your school</option></select>
+      <label for="rId">Student ID</label>
+      <input id="rId" placeholder="your student ID" autocomplete="off" autocapitalize="none" required>
+      <div class="hint">The ID your school gave you. Letters and numbers only.</div>
+      <label for="rPhone">Phone number</label>
+      <input id="rPhone" type="tel" placeholder="01XXXXXXXXX" autocomplete="tel" required>
+      <label for="rPass">Password</label>
+      <input id="rPass" type="password" autocomplete="new-password" required>
+      <div class="hint">At least 6 characters. You will use it with your student ID to sign in.</div>
+      <label for="rPass2">Confirm password</label>
+      <input id="rPass2" type="password" autocomplete="new-password" required>
+      <button class="btn full" type="submit">Create account</button>
+      <div class="msg-line" id="rMsg" role="alert"></div>
+      <p class="switch">Already registered? <a class="link" href="#signin">Sign in</a></p>
+    </form>
+  </section>
+</main>
+
+<!-- Dashboard -->
+<main id="vDash" class="in pg hidden">
+  <h1 class="serif" id="dHello">Welcome</h1>
+  <p class="sub" id="dSchool"></p>
+  <div class="grid2">
+    <section class="card">
+      <h2 class="serif">Announcements</h2>
+      <div class="msg-line" id="dMsg" role="alert" style="margin-top:0;min-height:0"></div>
+      <div id="dAnn"></div>
+    </section>
+    <aside>
+      <div class="card">
+        <h2 class="serif">Your school community</h2>
+        <p>Chat live with the students of your own school. Messages are cleared every day at midnight.</p>
+        <a class="btn" href="#community">Open the chat</a>
+      </div>
+      <div class="card">
+        <h2 class="serif">Your account</h2>
+        <dl class="dl">
+          <dt>Name</dt><dd id="dName"></dd>
+          <dt>Student ID</dt><dd id="dId"></dd>
+          <dt>School</dt><dd id="dSch"></dd>
+          <dt>Phone</dt><dd id="dPhone"></dd>
+        </dl>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- Your school community -->
+<main id="vCommunity" class="in pg hidden">
+  <h1 class="serif">Your school community</h1>
+  <div class="chat">
+    <div class="chead"><b id="cSchool"></b><span class="long"> Only students from your school can see this chat. Messages are cleared every day at midnight (Cairo time).</span></div>
+    <div class="clist" id="cList" aria-live="polite">
+      <div class="cempty" id="cEmpty">No messages yet today. Say hello to your school.</div>
+    </div>
+    <form class="composer" id="cForm" novalidate>
+      <div class="attach hidden" id="cPrev"><img id="cPrevImg" alt="Selected photo"><button class="ibtn" type="button" id="cPrevX" aria-label="Remove photo"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+      <div class="linkrow hidden" id="cLinkRow"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><input id="cLink" type="url" placeholder="https://" maxlength="300" aria-label="Link"><button class="ibtn" type="button" id="cLinkX" aria-label="Remove link"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div>
+      <div class="cbox">
+        <div class="amenu-wrap">
+          <button class="ibtn" type="button" id="cAttach" aria-label="Attach" aria-haspopup="menu" aria-expanded="false" aria-controls="cMenu"><svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></button>
+          <div class="amenu hidden" id="cMenu" role="menu">
+            <button type="button" role="menuitem" id="cPhoto"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></svg><span>Attach a photo</span></button>
+            <button type="button" role="menuitem" id="cLinkBtn"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Attach a link</span></button>
+          </div>
+        </div>
+        <textarea id="cText" dir="auto" rows="1" maxlength="1000" placeholder="Write a message" aria-label="Message"></textarea>
+        <span class="cwait hidden" id="cWait" aria-live="off"></span>
+        <button class="send" type="submit" id="cSend" aria-label="Send"><svg class="ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></button>
+      </div>
+      <input id="cFile" type="file" accept="image/*" class="hidden">
+      <div class="cnote">One message every 5 minutes. Tap a message to react to it.</div>
+      <div class="msg-line" id="cMsg" role="alert" style="margin-top:6px;min-height:0"></div>
+    </form>
+  </div>
+</main>
+
+<!-- Admin -->
+<main id="vAdmin" class="in pg hidden">
+  <h1 class="serif">Admin</h1>
+  <div class="subtabs" role="tablist">
+    <button role="tab" data-tab="acc" aria-selected="true">Accounts</button>
+    <button role="tab" data-tab="ann" aria-selected="false">Announcements</button>
+  </div>
+
+  <section id="tabAcc">
+    <div class="tools">
+      <input id="aSearch" type="search" placeholder="Search by name, ID, phone or school">
+      <select id="aSchool"><option value="">All schools</option></select>
+      <button class="sm" id="aReload" type="button">Refresh</button>
+      <span class="count" id="aCount"></span>
+    </div>
+    <div class="msg-line" id="aMsg" role="alert"></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Name</th><th>Student ID</th><th>School</th><th>Phone</th><th>Registered</th><th></th></tr></thead>
+      <tbody id="aBody"></tbody>
+    </table></div>
+  </section>
+
+  <section id="tabAnn" class="hidden">
+    <form class="box" id="annForm" novalidate>
+      <h2 class="serif">New announcement</h2>
+      <label for="nTitle">Title</label><input id="nTitle" maxlength="100" dir="auto">
+      <label for="nBody">Message</label><textarea id="nBody" rows="5" maxlength="1000" dir="auto"></textarea>
+      <label for="nLink">Link (optional)</label><input id="nLink" type="url" placeholder="https://" maxlength="300">
+      <button class="btn full" type="submit">Post announcement</button>
+      <div class="msg-line" id="nMsg" role="alert"></div>
+    </form>
+    <div class="card" style="margin-top:28px;max-width:720px"><h2 class="serif">Posted</h2><div id="nList"></div></div>
+  </section>
+</main>
+
+<dialog id="editDlg">
+  <form id="editForm" novalidate>
+    <h2 class="serif" style="font-size:1.4rem">Edit account</h2>
+    <label>Student ID</label>
+    <input id="eId" class="ro" readonly>
+    <div class="hint">The student ID cannot be changed. Delete the account if it was created with the wrong ID.</div>
+    <label for="eName">Full name</label>
+    <input id="eName" dir="auto">
+    <label for="eSchool">School</label>
+    <select id="eSchool"></select>
+    <label for="ePhone">Phone number</label>
+    <input id="ePhone" type="tel">
+    <div class="msg-line" id="eMsg" role="alert"></div>
+    <div class="row"><button class="btn plain" type="button" id="eCancel">Cancel</button><button class="btn" type="submit">Save changes</button></div>
+  </form>
+</dialog>
+
+<dialog id="nameDlg">
+  <form id="nameForm" novalidate>
+    <h2 class="serif" style="font-size:1.4rem">Add your full name</h2>
+    <label for="nmName">Full name (three names)</label>
+    <input id="nmName" dir="auto" autocomplete="name">
+    <div class="msg-line" id="nmMsg" role="alert"></div>
+    <div class="row"><button class="btn plain" type="button" id="nmOut">Sign out</button><button class="btn" type="submit">Save name</button></div>
+  </form>
+</dialog>
+
+<dialog id="imgDlg" class="lb"><img id="lbImg" alt="Photo"></dialog>
+
+<footer>&copy; STEM Collaboration</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser }
+  from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, deleteField, collection, query, where, orderBy, limit, limitToLast, onSnapshot, writeBatch, serverTimestamp, Timestamp }
+  from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCR9qMD-uo5W81LPIWgMdfNsaKFdiAOxOk",
+  authDomain: "stem-collaboration.firebaseapp.com",
+  projectId: "stem-collaboration",
+  storageBucket: "stem-collaboration.firebasestorage.app",
+  messagingSenderId: "477586951644",
+  appId: "1:477586951644:web:0e5a93749225fca50ed319"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// STEM schools in Egypt (Ministry of Education announcement, 2026)
+const SCHOOLS = [
+  "6th of October STEM School for Boys (Giza)",
+  "6th of October STEM School, District 11 (Giza, mixed)",
+  "Maadi STEM School for Girls (Cairo)",
+  "New Cairo STEM School (mixed)",
+  "Alexandria STEM School (mixed)",
+  "Kafr El-Sheikh STEM School (mixed)",
+  "Dakahlia STEM School (mixed)",
+  "Ismailia STEM School (mixed)",
+  "Red Sea STEM School (mixed)",
+  "Assiut STEM School (mixed)",
+  "Luxor STEM School (mixed)",
+  "Sirs El-Layyan STEM School for Girls (Menoufia)",
+  "Sadat City STEM School for Boys (Menoufia)",
+  "Gharbia STEM School (mixed)",
+  "Qalyubia STEM School, Obour (mixed)",
+  "Sharqia STEM School (mixed)",
+  "Qena STEM School (mixed)",
+  "Fayoum STEM School for Boys",
+  "Beni Suef STEM School (mixed)",
+  "Minya STEM School for Boys"
+];
+const EMOJIS = ["👍", "❤️", "😂", "😮", "😢", "🙏", "🔥", "👏", "🎉", "💡", "🤔", "✅"];
+const SEND_GAP_MS = 5 * 60 * 1000;   // one message per user every 5 minutes
+const IMG_MAX_CHARS = 750000;        // Firestore documents are limited to 1 MiB in total
+const TZ = "Africa/Cairo";
+
+const $ = id => document.getElementById(id);
+const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
+const fmt = ts => ts && ts.toDate ? ts.toDate().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: TZ }) : "";
+const fmtTime = d => d ? d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: TZ }) : "";
+const opt = (sel, v) => { const o = document.createElement("option"); o.value = o.textContent = v; sel.appendChild(o); };
+const DOMAIN = "@stem-collab.app"; // internal email = student ID + this domain
+const emailOf = id => id.trim().toLowerCase() + DOMAIN;
+const validId = id => /^[a-z0-9_-]{3,30}$/i.test(id.trim());
+const validPhone = p => /^01[0125][0-9]{8}$/.test(p.trim());
+const NAME_RE = /^[\p{L}\p{M}'’-]{2,}(?:\s+[\p{L}\p{M}'’-]{2,}){2,}$/u;   // at least three names
+const cleanName = n => n.trim().replace(/\s+/g, " ");
+const validName = n => n.length <= 60 && NAME_RE.test(n);
+const validLink = l => /^https?:\/\/\S+$/i.test(l) && l.length <= 300;
+const say = (e, text, type = "err") => { e.textContent = text; e.className = "msg-line " + type; };
+
+
+// ---------- Icons ----------
+const ICON = {
+  chevron: '<path d="m6 9 6 6 6-6"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>'
+};
+const icon = (n, size = 20) => `<svg class="ic" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[n]}</svg>`;
+
+// ---------- Searchable dropdown (replaces the native school <select>; the select stays in sync) ----------
+function dropdown(sel, { ph = "Select", all = "" } = {}) {
+  const wrap = el("div", "dd"), btn = el("button", "dd-btn"), txt = el("span");
+  btn.type = "button"; btn.setAttribute("aria-haspopup", "listbox"); btn.setAttribute("aria-expanded", "false");
+  btn.append(txt); btn.insertAdjacentHTML("beforeend", icon("chevron", 18));
+  const back = el("div", "dd-back"), panel = el("div", "dd-panel hidden");
+  const sw = el("div", "dd-search"); sw.insertAdjacentHTML("beforeend", icon("search", 18));
+  const search = document.createElement("input"); search.type = "search"; search.placeholder = "Search schools"; search.setAttribute("aria-label", "Search schools"); search.autocomplete = "off";
+  sw.appendChild(search);
+  const list = el("ul", "dd-list"); list.setAttribute("role", "listbox");
+  panel.append(sw, list); wrap.append(btn, back, panel);
+  sel.classList.add("hidden"); sel.after(wrap);
+  const lab = document.querySelector(`label[for="${sel.id}"]`);
+  if (lab) { lab.id = lab.id || sel.id + "Lbl"; btn.setAttribute("aria-labelledby", lab.id); lab.addEventListener("click", e => { e.preventDefault(); btn.focus(); }); }
+
+  let items = [], act = -1;
+  const isOpen = () => !panel.classList.contains("hidden");
+  function sync() {
+    txt.textContent = sel.value || all || ph;
+    txt.className = !sel.value && !all ? "ph" : "";
+  }
+  function setAct(i) {
+    items.forEach(li => li.classList.remove("act"));
+    act = items.length ? Math.max(0, Math.min(i, items.length - 1)) : -1;
+    if (act >= 0) { items[act].classList.add("act"); items[act].scrollIntoView({ block: "nearest" }); }
+  }
+  function build(filter) {
+    list.textContent = ""; items = [];
+    const f = filter.trim().toLowerCase();
+    [...sel.options].forEach(o => {
+      if (o.value === "" && !all) return;
+      const label = o.value === "" ? all : o.value;
+      if (f && !label.toLowerCase().includes(f)) return;
+      const li = el("li", "dd-opt"); li.setAttribute("role", "option"); li.dataset.v = o.value;
+      li.appendChild(el("span", null, label));
+      if (o.value === sel.value) { li.classList.add("sel"); li.setAttribute("aria-selected", "true"); li.insertAdjacentHTML("beforeend", icon("check", 18)); }
+      items.push(li); list.appendChild(li);
+    });
+    if (!items.length) { const n = el("li", "dd-none", "No school matches your search."); list.appendChild(n); }
+    const cur = items.findIndex(li => li.classList.contains("sel"));
+    setAct(f ? 0 : cur);
+  }
+  function open() {
+    if (isOpen()) return;
+    search.value = ""; build("");
+    panel.classList.remove("hidden"); wrap.classList.add("open"); btn.setAttribute("aria-expanded", "true");
+    if (!matchMedia("(pointer:coarse)").matches) search.focus();
+    panel.scrollIntoView({ block: "nearest" });
+  }
+  function close(focusBtn) {
+    if (!isOpen()) return;
+    panel.classList.add("hidden"); wrap.classList.remove("open"); btn.setAttribute("aria-expanded", "false");
+    if (focusBtn) btn.focus();
+  }
+  function pick(v) {
+    sel.value = v; sel.dispatchEvent(new Event("change", { bubbles: true }));
+    sync(); close(true);
+  }
+  btn.addEventListener("click", () => isOpen() ? close() : open());
+  btn.addEventListener("keydown", e => { if (e.key === "ArrowDown") { e.preventDefault(); open(); } });
+  back.addEventListener("click", () => close());
+  list.addEventListener("click", e => { const li = e.target.closest(".dd-opt"); if (li) pick(li.dataset.v); });
+  list.addEventListener("mousemove", e => { const li = e.target.closest(".dd-opt"); if (li) { const i = items.indexOf(li); if (i !== act) setAct(i); } });
+  search.addEventListener("input", () => build(search.value));
+  search.addEventListener("keydown", e => {
+    if (e.key === "ArrowDown") { e.preventDefault(); setAct(act + 1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setAct(act - 1); }
+    else if (e.key === "Enter") { e.preventDefault(); if (act >= 0) pick(items[act].dataset.v); }
+    else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(true); }
+    else if (e.key === "Tab") close();
+  });
+  document.addEventListener("click", e => { if (!wrap.contains(e.target)) close(); });
+  sel._sync = sync; sync();
+}
+
+SCHOOLS.forEach(s => {
+  [$("rSchool"), $("aSchool"), $("eSchool")].forEach(sel => opt(sel, s));
+  $("schoolList").appendChild(el("li", null, s));
+});
+dropdown($("rSchool"), { ph: "Select your school" });
+dropdown($("aSchool"), { all: "All schools" });
+dropdown($("eSchool"), { ph: "Select your school" });
+
+// ---------- State and routing ----------
+let currentUser = null, profile = null, isAdmin = false, ready = false, busy = false;
+let rows = [], anns = [];
+
+function render(){
+  if (!ready || busy) return;
+  const h = location.hash.replace("#", "");
+  let view;
+  if (!currentUser) view = (h === "signin" || h === "register") ? "vAuth" : "vHome";
+  else view = h === "community" ? "vCommunity" : (h === "admin" && isAdmin) ? "vAdmin" : "vDash";
+  ["vHome", "vAuth", "vDash", "vCommunity", "vAdmin"].forEach(v => $(v).classList.toggle("hidden", v !== view));
+  const reg = h === "register";
+  $("loginForm").classList.toggle("hidden", reg); $("txtSignin").classList.toggle("hidden", reg);
+  $("regForm").classList.toggle("hidden", !reg); $("txtRegister").classList.toggle("hidden", !reg);
+  const inn = !!currentUser;
+  $("appnav").classList.toggle("hidden", !inn);
+  $("tabbar").classList.toggle("hidden", !inn);
+  document.body.classList.toggle("has-tabs", inn);
+  document.body.dataset.view = view;
+  $("navAdmin").classList.toggle("hidden", !isAdmin);
+  $("tabAdmin").classList.toggle("hidden", !isAdmin);
+  document.querySelectorAll("#appnav a, #tabbar a").forEach(a => { if (a.dataset.v === view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  $("whoId").textContent = inn && profile ? (profile.fullName || profile.studentId) : "";
+  $("navSignin").classList.toggle("hidden", inn || view === "vAuth");
+  $("whoId").classList.toggle("hidden", !inn);
+  $("logoutBtn").classList.toggle("hidden", !inn);
+  window.scrollTo(0, 0);
+  if (view !== "vCommunity") stopChat();
+  if (inn && profile && !profile.fullName) { if (!$("nameDlg").open) $("nameDlg").showModal(); return; }
+  if (view === "vDash") { drawAccount(); loadAnnouncements(); }
+  if (view === "vCommunity") startChat();
+  if (view === "vAdmin") { loadUsers(); loadAnnouncements(); }
+}
+window.addEventListener("hashchange", render);
+
+// ---------- Errors ----------
+const ERR = {
+  "auth/configuration-not-found": "Firebase Authentication is not set up yet. In the Firebase console open Authentication, click Get started, then enable Email/Password under Sign-in method.",
+  "auth/email-already-in-use": "This student ID is already registered. Try signing in.",
+  "auth/invalid-credential": "Incorrect student ID or password.",
+  "auth/invalid-login-credentials": "Incorrect student ID or password.",
+  "auth/user-not-found": "Incorrect student ID or password.",
+  "auth/wrong-password": "Incorrect student ID or password.",
+  "auth/weak-password": "Password is too weak. Use at least 6 characters.",
+  "auth/too-many-requests": "Too many attempts. Wait a moment and try again.",
+  "auth/network-request-failed": "Network error. Check your connection and try again.",
+  "auth/operation-not-allowed": "Email/Password sign-in is not enabled in the Firebase console (Authentication > Sign-in method).",
+  "auth/operation-not-supported-in-this-environment": "Open the site through a web server (such as VS Code Live Server), not by double-clicking the file.",
+  "permission-denied": "Permission denied. Make sure the latest Firestore rules are published.",
+  "not-found": "Firestore database has not been created yet (Firebase console > Firestore Database > Create database).",
+  "failed-precondition": "Firestore is not ready. Create the database in the Firebase console first.",
+  "unavailable": "Could not reach Firestore. Check your connection and try again."
+};
+const errText = err => ERR[err.code] || `Something went wrong (${err.code || err.message}).`;
+const adminErr = err => err.code === "permission-denied"
+  ? "Permission denied. Check that your account has a document in the 'admins' collection and that the latest rules are published."
+  : errText(err);
+
+// ---------- Register ----------
+$("regForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const m = $("rMsg"), btn = e.submitter;
+  const fullName = cleanName($("rName").value), school = $("rSchool").value, id = $("rId").value, phone = $("rPhone").value, p1 = $("rPass").value, p2 = $("rPass2").value;
+  if (!validName(fullName)) return say(m, "Enter your full name with three names (first, father's and grandfather's), letters only.");
+  if (!school) return say(m, "Select your school.");
+  if (!validId(id)) return say(m, "Student ID must be 3 to 30 letters or numbers, with no spaces.");
+  if (!validPhone(phone)) return say(m, "Enter a valid Egyptian phone number, for example 01012345678.");
+  if (p1.length < 6) return say(m, "Password must be at least 6 characters.");
+  if (p1 !== p2) return say(m, "Passwords do not match.");
+  btn.disabled = true; busy = true; say(m, "Creating your account...", "ok");
+  let cred = null;
+  try {
+    cred = await createUserWithEmailAndPassword(auth, emailOf(id), p1);
+    const data = { studentId: id.trim().toLowerCase(), fullName, phone: phone.trim(), school };
+    await setDoc(doc(db, "users", cred.user.uid), { ...data, createdAt: serverTimestamp() });
+    profile = data; isAdmin = false;
+    busy = false; currentUser = cred.user; location.hash = ""; render();
+  } catch (err) {
+    console.error(err);
+    // Profile could not be saved: remove the half-created account so the student can retry
+    if (cred) { try { await deleteUser(cred.user); } catch (_) {} }
+    busy = false; currentUser = auth.currentUser; render();
+    say(m, errText(err));
+  } finally { btn.disabled = false; }
+});
+
+// ---------- Sign in / out ----------
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const m = $("lMsg"), btn = e.submitter, id = $("lId").value, pw = $("lPass").value;
+  if (!validId(id) || !pw) return say(m, "Enter your student ID and password.");
+  btn.disabled = true; say(m, "Signing in...", "ok");
+  try { await signInWithEmailAndPassword(auth, emailOf(id), pw); location.hash = ""; }
+  catch (err) { console.error(err); say(m, errText(err)); }
+  finally { btn.disabled = false; }
+});
+const doSignOut = async () => { $("nameDlg").close(); await signOut(auth); location.hash = ""; };
+$("logoutBtn").addEventListener("click", doSignOut);
+$("nmOut").addEventListener("click", doSignOut);
+
+onAuthStateChanged(auth, async user => {
+  ready = true;
+  if (busy) return;
+  if (!user) { currentUser = null; profile = null; isAdmin = false; stopChat(); render(); return; }
+  let snap = null, failed = false;
+  try { snap = await getDoc(doc(db, "users", user.uid)); } catch (err) { failed = true; console.error(err); }
+  if (!failed && !snap.exists()) {
+    // Profile was deleted by an admin: remove the login too, so the ID can be registered again
+    busy = true;
+    try { await deleteUser(user); } catch (_) {}
+    try { await signOut(auth); } catch (_) {}
+    busy = false; currentUser = null; profile = null; isAdmin = false;
+    location.hash = "#signin"; render();
+    say($("lMsg"), "This account was removed by an administrator. Contact your school or register again.");
+    return;
+  }
+  try { isAdmin = (await getDoc(doc(db, "admins", user.uid))).exists(); } catch (_) { isAdmin = false; }
+  profile = snap ? snap.data() : null;
+  currentUser = user; render();
+});
+
+// Accounts created before names existed must add one (can be set once)
+$("nameDlg").addEventListener("cancel", e => e.preventDefault());
+$("nameForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const name = cleanName($("nmName").value), m = $("nmMsg");
+  if (!validName(name)) return say(m, "Enter three names (first, father's and grandfather's), letters only.");
+  try {
+    await updateDoc(doc(db, "users", currentUser.uid), { fullName: name });
+    profile.fullName = name; $("nameDlg").close(); render();
+  } catch (err) { console.error(err); say(m, errText(err)); }
+});
+
+// ---------- Dashboard ----------
+function drawAccount(){
+  if (!profile) return;
+  const first = (profile.fullName || "").split(" ")[0];
+  $("dHello").textContent = first ? `Welcome, ${first}` : "Welcome";
+  $("dSchool").textContent = profile.school;
+  $("dName").textContent = profile.fullName || "";
+  $("dId").textContent = profile.studentId; $("dSch").textContent = profile.school; $("dPhone").textContent = profile.phone;
+}
+async function loadAnnouncements(){
+  try {
+    const s = await getDocs(query(collection(db, "announcements"), orderBy("createdAt", "desc"), limit(20)));
+    anns = s.docs.map(d => ({ id: d.id, ...d.data() }));
+    say($("dMsg"), "", "ok");
+  } catch (err) { console.error(err); say($("dMsg"), errText(err)); }
+  drawAnnouncements(); drawAnnAdmin();
+}
+function linkButton(url){
+  const a = el("a", "btn plain mlink", "Open link");
+  try { a.textContent = "Open " + new URL(url).hostname.replace(/^www\./, ""); } catch (_) {}
+  a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer"; return a;
+}
+function annItem(n){
+  const d = el("div", "item"); d.append(el("b", null, n.title), el("div", "meta", fmt(n.createdAt)));
+  const p = el("p", "body", n.body); p.dir = "auto"; d.appendChild(p);
+  if (n.link && validLink(n.link)) { const a = linkButton(n.link); a.classList.remove("mlink"); d.appendChild(a); }
+  return d;
+}
+function drawAnnouncements(){
+  const box = $("dAnn"); box.textContent = "";
+  if (!anns.length) { box.appendChild(el("p", "empty", "No announcements yet.")); return; }
+  anns.slice(0, 8).forEach(n => box.appendChild(annItem(n)));
+}
+
+// ---------- Your school community (live chat) ----------
+let unsubChat = null, chatSchool = null, msgs = [], nodes = new Map(), midT = null;
+let lastSentMs = 0, tick = null, pendingImage = "";
+
+// Start of the current day in Egypt (messages are shown and kept for one day only)
+function cairoMidnight(){
+  const p = {};
+  new Intl.DateTimeFormat("en-US", { timeZone: TZ, hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" })
+    .formatToParts(new Date()).forEach(x => { p[x.type] = x.value; });
+  const secs = (+p.hour % 24) * 3600 + +p.minute * 60 + +p.second;
+  const now = Date.now();
+  return new Date(now - secs * 1000 - (now % 1000));
+}
+// Oldest messages the rules let a student clean up: older than both Egypt midnight and UTC midnight
+const purgeCutoff = () => new Date(Math.min(cairoMidnight().getTime(), Date.now() - (Date.now() % 86400000)));
+const msgCol = () => collection(db, "chats", profile.school, "messages");
+
+function startChat(){
+  if (!profile || !profile.school || !profile.fullName) return;
+  $("cSchool").textContent = profile.school;
+  if (unsubChat && chatSchool === profile.school) return;
+  stopChat(); chatSchool = profile.school;
+  const start = Timestamp.fromDate(cairoMidnight());
+  unsubChat = onSnapshot(
+    query(msgCol(), where("createdAt", ">=", start), orderBy("createdAt", "asc"), limitToLast(100)),
+    snap => {
+      msgs = snap.docs.map(d => ({ id: d.id, ...d.data({ serverTimestamps: "estimate" }) }));
+      say($("cMsg"), "", "ok"); drawChat();
+    },
+    err => { console.error(err); say($("cMsg"), err.code === "permission-denied"
+      ? "Could not load the chat. Make sure the latest Firestore rules are published and your account has a full name."
+      : errText(err)); });
+  purgeOld(); loadLimit();
+  clearTimeout(midT);
+  midT = setTimeout(() => { if (!$("vCommunity").classList.contains("hidden")) { stopChat(); startChat(); } else stopChat(); },
+    cairoMidnight().getTime() + 86400000 - Date.now() + 2000);
+}
+function stopChat(){
+  if (unsubChat) { unsubChat(); unsubChat = null; }
+  clearTimeout(midT); chatSchool = null; msgs = [];
+  nodes.forEach(n => n.remove()); nodes.clear();
+  $("cEmpty").classList.remove("hidden");
+}
+async function purgeOld(){
+  try {
+    const old = await getDocs(query(msgCol(), where("createdAt", "<", Timestamp.fromDate(purgeCutoff())), limit(200)));
+    if (old.empty) return;
+    const b = writeBatch(db); old.docs.forEach(d => b.delete(d.ref)); await b.commit();
+  } catch (err) { console.warn("Old messages were not cleaned up:", err.code || err.message); }
+}
+
+function buildMsg(m){
+  const n = el("article", "cmsg");
+  n.dataset.id = m.id;
+  const head = el("div", "mhead"); head.append(el("b", "name"), el("span", "time")); n.appendChild(head);
+  const text = el("div", "mtext"); text.dir = "auto"; n.appendChild(text);
+  n.append(el("div", "imgbox"), el("div", "linkbox"), el("div", "rx"), el("div", "pick"));
+  n.addEventListener("click", e => { if (!e.target.closest("a,button,img")) n.classList.toggle("open"); });
+  n._img = null; n._pickBuilt = false;
+  return n;
+}
+function updateMsg(n, m){
+  n._m = m;
+  const mine = currentUser && m.uid === currentUser.uid;
+  n.classList.toggle("own", !!mine);
+  n.querySelector(".name").textContent = m.name || "Student";
+  n.querySelector(".time").textContent = fmtTime(m.createdAt && m.createdAt.toDate ? m.createdAt.toDate() : null);
+  const t = n.querySelector(".mtext"); t.textContent = m.text || ""; t.classList.toggle("hidden", !m.text);
+  const ib = n.querySelector(".imgbox");
+  if (m.image && /^data:image\//.test(m.image) && n._img !== m.image) {
+    ib.textContent = ""; const im = el("img", "mimg"); im.src = m.image; im.alt = "Photo sent by " + (m.name || "a student"); im.loading = "lazy";
+    im.addEventListener("click", () => { $("lbImg").src = m.image; $("imgDlg").showModal(); });
+    ib.appendChild(im); n._img = m.image;
+  }
+  const lb = n.querySelector(".linkbox");
+  if (m.link && validLink(m.link) && n._link !== m.link) { lb.textContent = ""; lb.appendChild(linkButton(m.link)); n._link = m.link; }
+  // reactions: one emoji per person, grouped with counts
+  const rx = n.querySelector(".rx"); rx.textContent = "";
+  const groups = {};
+  Object.entries(m.reactions || {}).forEach(([uid, em]) => { (groups[em] = groups[em] || []).push(uid); });
+  Object.entries(groups).forEach(([em, uids]) => {
+    const mineHere = currentUser && uids.includes(currentUser.uid);
+    const c = el("button", "chip" + (mineHere ? " mine" : ""), `${em} ${uids.length}`); c.type = "button";
+    c.onclick = () => react(n._m, em); rx.appendChild(c);
+  });
+  const pick = n.querySelector(".pick");
+  if (!n._pickBuilt) {
+    EMOJIS.forEach(em => { const b = el("button", "em", em); b.type = "button"; b.setAttribute("aria-label", "React " + em); b.onclick = () => { react(n._m, em); n.classList.remove("open"); }; pick.appendChild(b); });
+    const del = el("button", "sm del", "Delete"); del.type = "button"; del.onclick = () => removeMsg(n._m); pick.appendChild(del);
+    n._del = del; n._pickBuilt = true;
+  }
+  n._del.classList.toggle("hidden", !(mine || isAdmin));
+}
+function drawChat(){
+  const box = $("cList"), first = nodes.size === 0;
+  const near = box.scrollHeight - box.scrollTop - box.clientHeight < 140;
+  const ids = new Set(msgs.map(m => m.id));
+  nodes.forEach((n, id) => { if (!ids.has(id)) { n.remove(); nodes.delete(id); } });
+  let added = false, ownNew = false;
+  msgs.forEach((m, i) => {
+    let n = nodes.get(m.id);
+    if (!n) { n = buildMsg(m); nodes.set(m.id, n); added = true; if (currentUser && m.uid === currentUser.uid) ownNew = true; }
+    updateMsg(n, m);
+    const cur = box.querySelectorAll(".cmsg")[i];
+    if (cur !== n) box.insertBefore(n, cur || null);
+  });
+  $("cEmpty").classList.toggle("hidden", msgs.length > 0);
+  if (first || (added && (near || ownNew))) box.scrollTop = box.scrollHeight;
+}
+async function react(m, emoji){
+  if (!currentUser) return;
+  const ref = doc(db, "chats", profile.school, "messages", m.id);
+  const mine = (m.reactions || {})[currentUser.uid];
+  try { await updateDoc(ref, { ["reactions." + currentUser.uid]: mine === emoji ? deleteField() : emoji }); }
+  catch (err) { console.error(err); say($("cMsg"), errText(err)); }
+}
+async function removeMsg(m){
+  if (!confirm("Delete this message?")) return;
+  try { await deleteDoc(doc(db, "chats", profile.school, "messages", m.id)); }
+  catch (err) { console.error(err); say($("cMsg"), errText(err)); }
+}
+$("imgDlg").addEventListener("click", () => $("imgDlg").close());
+
+// One message every 5 minutes: the Send button turns into a countdown
+async function loadLimit(){
+  try {
+    const s = await getDoc(doc(db, "chatLimits", currentUser.uid));
+    lastSentMs = s.exists() && s.data().last && s.data().last.toMillis ? s.data().last.toMillis() : 0;
+  } catch (err) { console.warn(err); }
+  updateSend();
+}
+function updateSend(){
+  const left = lastSentMs + SEND_GAP_MS - Date.now(), b = $("cSend"), w = $("cWait");
+  clearInterval(tick);
+  if (left > 0) {
+    const s = Math.ceil(left / 1000), t = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+    b.disabled = true; w.textContent = t; w.classList.remove("hidden");
+    b.setAttribute("aria-label", `You can send again in ${t}`);
+    tick = setInterval(updateSend, 1000);
+  } else { b.disabled = false; w.classList.add("hidden"); w.textContent = ""; b.setAttribute("aria-label", "Send"); }
+}
+
+// Attachments
+const menu = $("cMenu"), attachBtn = $("cAttach");
+const setMenu = o => { menu.classList.toggle("hidden", !o); attachBtn.setAttribute("aria-expanded", String(o)); };
+attachBtn.addEventListener("click", () => setMenu(menu.classList.contains("hidden")));
+document.addEventListener("click", e => { if (!e.target.closest(".amenu-wrap")) setMenu(false); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !menu.classList.contains("hidden")) { setMenu(false); attachBtn.focus(); } });
+const hideLink = () => { $("cLink").value = ""; $("cLinkRow").classList.add("hidden"); };
+$("cLinkBtn").addEventListener("click", () => { setMenu(false); $("cLinkRow").classList.remove("hidden"); $("cLink").focus(); });
+$("cLinkX").addEventListener("click", hideLink);
+$("cPhoto").addEventListener("click", () => { setMenu(false); $("cFile").click(); });
+const growText = () => { const t = $("cText"); t.style.height = "0"; t.style.height = Math.max(42, Math.min(t.scrollHeight, 132)) + "px"; };
+$("cText").addEventListener("input", growText);
+$("cPrevX").addEventListener("click", clearPhoto);
+function clearPhoto(){ pendingImage = ""; $("cFile").value = ""; $("cPrev").classList.add("hidden"); $("cPrevImg").removeAttribute("src"); }
+const readFile = f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsDataURL(f); });
+const loadImg = src => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
+// Small photos are sent as they are; larger ones are resized and compressed until they fit
+async function processImage(file){
+  const url = await readFile(file);
+  if (url.length <= IMG_MAX_CHARS && /^data:image\/(png|jpeg|webp|gif);base64,/.test(url)) return url;
+  const img = await loadImg(url);
+  let scale = Math.min(1, 1600 / Math.max(img.width, img.height));
+  for (let i = 0; i < 8; i++) {
+    const c = document.createElement("canvas");
+    c.width = Math.max(1, Math.round(img.width * scale)); c.height = Math.max(1, Math.round(img.height * scale));
+    const ctx = c.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
+    for (const q of [0.85, 0.7, 0.55, 0.4]) { const out = c.toDataURL("image/jpeg", q); if (out.length <= IMG_MAX_CHARS) return out; }
+    scale *= 0.75;
+  }
+  throw new Error("This photo is too large to send.");
+}
+$("cFile").addEventListener("change", async e => {
+  const f = e.target.files[0]; if (!f) return;
+  const m = $("cMsg");
+  if (!f.type.startsWith("image/")) { clearPhoto(); return say(m, "Choose an image file."); }
+  say(m, "Preparing photo...", "ok");
+  try { pendingImage = await processImage(f); $("cPrevImg").src = pendingImage; $("cPrev").classList.remove("hidden"); say(m, "", "ok"); }
+  catch (err) { console.error(err); clearPhoto(); say(m, err.message === "This photo is too large to send." ? err.message : "Could not read this photo. Try a JPG or PNG."); }
+});
+
+$("cForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const m = $("cMsg"), text = $("cText").value.trim(), link = $("cLink").value.trim(), image = pendingImage;
+  if (lastSentMs + SEND_GAP_MS > Date.now()) return;
+  if (!text && !image && !link) return say(m, "Write a message, or add a photo or a link.");
+  if (link && !validLink(link)) return say(m, "The link must start with http:// or https://");
+  $("cSend").disabled = true; say(m, "", "ok");
+  try {
+    const b = writeBatch(db);
+    b.set(doc(db, "chatLimits", currentUser.uid), { last: serverTimestamp() });
+    b.set(doc(msgCol()), { uid: currentUser.uid, name: profile.fullName, text, image, link, reactions: {}, createdAt: serverTimestamp() });
+    await b.commit();
+    lastSentMs = Date.now();
+    $("cText").value = ""; growText(); hideLink(); clearPhoto();
+  } catch (err) {
+    console.error(err);
+    say(m, err.code === "permission-denied"
+      ? "The message was not sent. You can send one message every 5 minutes, and the latest Firestore rules must be published."
+      : errText(err));
+    await loadLimit();
+  }
+  updateSend();
+});
+
+// ---------- Admin ----------
+document.querySelectorAll(".subtabs button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".subtabs button").forEach(x => x.setAttribute("aria-selected", x === b));
+  $("tabAcc").classList.toggle("hidden", b.dataset.tab !== "acc");
+  $("tabAnn").classList.toggle("hidden", b.dataset.tab !== "ann");
+}));
+
+async function loadUsers(){
+  say($("aMsg"), "Loading accounts...", "ok");
+  try {
+    const snap = await getDocs(query(collection(db, "users"), orderBy("createdAt", "desc")));
+    rows = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    say($("aMsg"), "", "ok"); drawRows();
+  } catch (err) { console.error(err); say($("aMsg"), adminErr(err)); }
+}
+function drawRows(){
+  const q = $("aSearch").value.trim().toLowerCase(), sc = $("aSchool").value;
+  const list = rows.filter(r => (!sc || r.school === sc) &&
+    (!q || [r.fullName, r.studentId, r.phone, r.school].some(v => String(v || "").toLowerCase().includes(q))));
+  $("aCount").textContent = `${list.length} of ${rows.length} accounts`;
+  const body = $("aBody"); body.textContent = "";
+  if (!list.length) { const td = body.insertRow().insertCell(); td.colSpan = 6; td.className = "wrap"; td.textContent = "No accounts found."; return; }
+  list.forEach(r => {
+    const tr = body.insertRow();
+    const add = (label, text, cls) => { const td = tr.insertCell(); td.dataset.label = label; td.textContent = text; if (cls) td.className = cls; return td; };
+    add("Name", r.fullName || "(no name yet)", "wrap").dir = "auto";
+    add("Student ID", r.studentId || ""); add("School", r.school || "", "wrap"); add("Phone", r.phone || ""); add("Registered", fmt(r.createdAt));
+    const act = tr.insertCell(); act.dataset.label = "";
+    const eb = el("button", "sm", "Edit"); eb.type = "button"; eb.onclick = () => openEdit(r); act.appendChild(eb);
+    if (currentUser && r.id !== currentUser.uid) { const del = el("button", "sm del", "Delete"); del.type = "button"; del.onclick = () => removeUser(r); act.appendChild(del); }
+  });
+}
+$("aSearch").addEventListener("input", drawRows);
+$("aSchool").addEventListener("change", drawRows);
+$("aReload").addEventListener("click", loadUsers);
+
+let editing = null;
+function openEdit(r){
+  editing = r; say($("eMsg"), "", "ok");
+  $("eId").value = r.studentId || ""; $("eName").value = r.fullName || ""; $("ePhone").value = r.phone || "";
+  const sel = $("eSchool");
+  if (![...sel.options].some(o => o.value === r.school)) opt(sel, r.school);
+  sel.value = r.school; sel._sync(); $("editDlg").showModal();
+}
+$("eCancel").addEventListener("click", () => $("editDlg").close());
+$("editForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const phone = $("ePhone").value.trim(), school = $("eSchool").value, fullName = cleanName($("eName").value);
+  if (!validName(fullName)) return say($("eMsg"), "Enter three names, letters only.");
+  if (!validPhone(phone)) return say($("eMsg"), "Enter a valid Egyptian phone number, for example 01012345678.");
+  try { await updateDoc(doc(db, "users", editing.id), { fullName, phone, school }); $("editDlg").close(); loadUsers(); }
+  catch (err) { console.error(err); say($("eMsg"), adminErr(err)); }
+});
+async function removeUser(r){
+  if (!confirm(`Delete the account ${r.studentId}?\nThe student will lose access and can register again.`)) return;
+  try { await deleteDoc(doc(db, "users", r.id)); loadUsers(); }
+  catch (err) { console.error(err); say($("aMsg"), adminErr(err)); }
+}
+
+// Announcements (admin only)
+function drawAnnAdmin(){
+  const box = $("nList"); box.textContent = "";
+  if (!anns.length) { box.appendChild(el("p", "empty", "Nothing posted yet.")); return; }
+  anns.forEach(n => {
+    const d = annItem(n);
+    const b = el("button", "sm del", "Delete"); b.type = "button"; b.style.marginTop = "10px"; b.style.display = "block"; b.onclick = () => removeAnn(n); d.appendChild(b); box.appendChild(d);
+  });
+}
+$("annForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const m = $("nMsg"), title = $("nTitle").value.trim(), body = $("nBody").value.trim(), link = $("nLink").value.trim();
+  if (title.length < 3 || !body) return say(m, "Enter a title (3+ characters) and a message.");
+  if (link && !validLink(link)) return say(m, "The link must start with http:// or https://");
+  try { await addDoc(collection(db, "announcements"), { title, body, link, createdAt: serverTimestamp() }); $("annForm").reset(); say(m, "Posted.", "ok"); loadAnnouncements(); }
+  catch (err) { console.error(err); say(m, adminErr(err)); }
+});
+async function removeAnn(n){
+  if (!confirm(`Delete the announcement "${n.title}"?`)) return;
+  try { await deleteDoc(doc(db, "announcements", n.id)); loadAnnouncements(); }
+  catch (err) { console.error(err); say($("nMsg"), adminErr(err)); }
+}
+</script>
+</body>
+</html>

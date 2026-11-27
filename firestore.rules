@@ -1,0 +1,166 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- helpers ----------
+
+    // An admin is any signed-in user who has a document at admins/{their uid}.
+    // Create that document by hand in the Firebase console; the app cannot write it.
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // The signed-in student's own profile
+    function me() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function validPhone(p) {
+      return p is string && p.matches('^01[0125][0-9]{8}$');
+    }
+
+    // The app checks for three names; here we only check length
+    function validName(n) {
+      return n is string && n.size() >= 5 && n.size() <= 60;
+    }
+
+    function validLink(l) {
+      return l is string && l.size() <= 300 && (l == '' || l.matches('https?://.+'));
+    }
+
+    // ---------- admins ----------
+    match /admins/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // ---------- student accounts ----------
+    match /users/{uid} {
+      allow read: if request.auth != null && (request.auth.uid == uid || isAdmin());
+
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['studentId', 'fullName', 'phone', 'school', 'createdAt'])
+        && request.resource.data.studentId is string
+        && request.resource.data.studentId.size() >= 3
+        && request.resource.data.studentId.size() <= 30
+        && request.auth.token.email == request.resource.data.studentId + '@stem-collab.app'
+        && validName(request.resource.data.fullName)
+        && validPhone(request.resource.data.phone)
+        && request.resource.data.school is string
+        && request.resource.data.school.size() <= 80
+        && request.resource.data.createdAt == request.time;
+
+      // Student: change the phone number, or set the full name once
+      // (only for accounts that were created before names existed)
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && (
+          (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['phone'])
+            && validPhone(request.resource.data.phone))
+          ||
+          (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fullName'])
+            && !('fullName' in resource.data)
+            && validName(request.resource.data.fullName))
+        );
+
+      // Admin: name, phone and school
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['fullName', 'phone', 'school'])
+        && validName(request.resource.data.fullName)
+        && validPhone(request.resource.data.phone)
+        && request.resource.data.school is string
+        && request.resource.data.school.size() <= 80;
+
+      allow delete: if isAdmin();
+    }
+
+    // ---------- announcements (posted by admins, read by everyone signed in) ----------
+    match /announcements/{id} {
+      allow read: if request.auth != null;
+
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['title', 'body', 'link', 'createdAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() >= 3
+        && request.resource.data.title.size() <= 100
+        && request.resource.data.body is string
+        && request.resource.data.body.size() >= 1
+        && request.resource.data.body.size() <= 1000
+        && validLink(request.resource.data.link)
+        && request.resource.data.createdAt == request.time;
+
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
+    // ---------- chat rate limit: one message per student every 5 minutes ----------
+    // Each message is written in the same batch as this document, and the message
+    // rule below checks that the batch really updated it.
+    match /chatLimits/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['last'])
+        && request.resource.data.last == request.time;
+
+      allow update: if request.auth != null
+        && request.auth.uid == uid
+        && request.resource.data.keys().hasOnly(['last'])
+        && request.resource.data.last == request.time
+        && request.time > resource.data.last + duration.value(5, 'm');
+    }
+
+    // ---------- school community chat ----------
+    // The school name is the path segment, so students only ever see their own school.
+    match /chats/{school}/messages/{id} {
+
+      allow read: if request.auth != null && (me().school == school || isAdmin());
+
+      allow create: if request.auth != null
+        && me().school == school
+        && request.resource.data.keys().hasOnly(['uid', 'name', 'text', 'image', 'link', 'reactions', 'createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.name == me().fullName
+        && request.resource.data.text is string
+        && request.resource.data.text.size() <= 1000
+        && request.resource.data.image is string
+        && request.resource.data.image.size() <= 900000
+        && validLink(request.resource.data.link)
+        && (request.resource.data.text.size() > 0
+            || request.resource.data.image.size() > 0
+            || request.resource.data.link.size() > 0)
+        && request.resource.data.reactions == {}
+        && request.resource.data.createdAt == request.time
+        && getAfter(/databases/$(database)/documents/chatLimits/$(request.auth.uid)).data.last == request.time;
+
+      // Reactions: a student may only change their own entry in the reactions map
+      allow update: if request.auth != null
+        && me().school == school
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['reactions'])
+        && request.resource.data.reactions.diff(resource.data.reactions).affectedKeys().hasOnly([request.auth.uid])
+        && (!(request.auth.uid in request.resource.data.reactions)
+            || (request.resource.data.reactions[request.auth.uid] is string
+                && request.resource.data.reactions[request.auth.uid].size() >= 1
+                && request.resource.data.reactions[request.auth.uid].size() <= 8));
+
+      // Delete: your own message, an admin, or any message from a previous day.
+      // Previous-day messages are cleaned up by the first student who opens the chat
+      // after midnight (rules compare against the UTC day).
+      allow delete: if request.auth != null
+        && (
+          resource.data.uid == request.auth.uid
+          || isAdmin()
+          || (me().school == school
+              && resource.data.createdAt.toMillis() < request.time.toMillis() - (request.time.toMillis() % 86400000))
+        );
+    }
+
+    // Everything else stays closed
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
