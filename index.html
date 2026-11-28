@@ -263,6 +263,38 @@ dialog.lb img{display:block;max-width:92vw;max-height:86vh}
 #tdPrev{display:block;max-width:140px;max-height:140px;margin-top:10px;border:1px solid var(--line)}
 @media(max-width:860px){.cc.tm{grid-template-columns:1fr}.cc.tm .th{min-height:0;aspect-ratio:16/9}}
 
+/* Study */
+.subjects{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.sbtn{display:flex;align-items:center;gap:20px;background:#fff;border:1px solid var(--line);padding:22px 26px;color:var(--navy);text-decoration:none;min-height:96px}
+.sbtn:hover{border-color:var(--navy);background:#fcfcff}
+.sbtn .si{flex:none;width:56px;height:56px;background:var(--tint);display:flex;align-items:center;justify-content:center;color:var(--navy);border-radius:4px}
+.sbtn .st2{flex:1;min-width:0}
+.sbtn b{display:block;font-family:'Source Serif 4',Georgia,serif;font-size:1.35rem;font-weight:600;line-height:1.25}
+.sbtn span.d{display:block;color:var(--mute);font-size:.93rem;margin-top:2px}
+.sbtn>.ic:last-child{color:var(--mute)}
+.chn{background:#fff;border:1px solid var(--line);margin-bottom:22px;overflow:hidden}
+.chn .cv{aspect-ratio:16/5;background:var(--tint);display:flex;align-items:center;justify-content:center;color:#8a93bd;overflow:hidden}
+.chn .cv img{width:100%;height:100%;object-fit:cover;display:block}
+.chn .row{display:flex;align-items:flex-start;gap:16px;padding:0 22px 20px;flex-wrap:wrap}
+.chn .pf{flex:none;width:88px;height:88px;margin-top:-44px;border-radius:50%;border:4px solid #fff;background:var(--tint);overflow:hidden;display:flex;align-items:center;justify-content:center;color:#8a93bd;position:relative}
+.chn .pf img{width:100%;height:100%;object-fit:cover;display:block}
+.chn .nm{flex:1;min-width:0;padding-top:12px;font-family:'Source Serif 4',Georgia,serif;font-size:1.25rem;font-weight:600;color:var(--navy);overflow-wrap:anywhere}
+.chn .btn{margin-top:12px;padding:9px 26px;display:inline-flex;align-items:center;gap:8px}
+.docrow{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);padding:16px 20px;margin-bottom:12px}
+.docrow .fi{flex:none;width:44px;height:44px;background:var(--tint);color:var(--navy);display:flex;align-items:center;justify-content:center;border-radius:4px}
+.docrow .dn{flex:1;min-width:0;font-weight:600;color:var(--navy);overflow-wrap:anywhere}
+.docrow .btn{padding:9px 20px;display:inline-flex;align-items:center;gap:8px;flex:none}
+.pv{display:block;margin-top:10px;border:1px solid var(--line);background:var(--tint)}
+.pv.round{width:84px;height:84px;border-radius:50%;object-fit:cover}
+.pv.cover{width:100%;max-width:360px;aspect-ratio:16/5;object-fit:cover}
+@media(max-width:700px){
+  .sbtn{padding:18px 16px;gap:14px;min-height:84px}.sbtn b{font-size:1.2rem}
+  .chn .row{padding:0 16px 16px}.chn .pf{width:72px;height:72px;margin-top:-36px}
+  .chn .nm{padding-top:8px;font-size:1.12rem}
+  .chn .btn{width:100%;justify-content:center;flex-basis:100%}
+  .docrow{flex-wrap:wrap;padding:14px 16px}.docrow .btn{width:100%;justify-content:center}
+}
+
 /* Footer */
 footer{background:var(--navy);color:#d6daf0;margin-top:auto;font-size:.95rem}
 footer h3{font-size:1.05rem;color:#fff;margin-bottom:12px}
@@ -364,6 +396,7 @@ footer :focus-visible{outline-color:#fff}
 <nav class="appnav hidden" id="appnav" aria-label="Main"><div class="in">
   <a href="#" data-v="vDash">Dashboard</a>
   <a href="#competitions" data-v="vComps">Competitions</a>
+  <a href="#study" data-v="vStudy">Study</a>
   <a href="#community" data-v="vCommunity">Your school community</a>
   <a href="#admin" data-v="vAdmin" id="navAdmin" class="hidden">Admin</a>
 </div></nav>
@@ -372,6 +405,7 @@ footer :focus-visible{outline-color:#fff}
 <nav class="tabbar hidden" id="tabbar" aria-label="Main">
   <a href="#" data-v="vDash"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Dashboard</span></a>
   <a href="#competitions" data-v="vComps"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg><span>Competitions</span></a>
+  <a href="#study" data-v="vStudy"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg><span>Study</span></a>
   <a href="#community" data-v="vCommunity"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg><span>Community</span></a>
   <a href="#admin" data-v="vAdmin" id="tabAdmin" class="hidden"><svg class="ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><span>Admin</span></a>
 </nav>
@@ -596,6 +630,28 @@ footer :focus-visible{outline-color:#fff}
   </div>
 </main>
 
+<!-- Study -->
+<main id="vStudy" class="in pg hidden">
+  <h1 class="serif">Study</h1>
+  <p class="sub">Choose a subject to find the best YouTube channels and study files.</p>
+  <div class="subjects" id="stSubjects"></div>
+</main>
+
+<main id="vSubject" class="in pg hidden">
+  <a class="back link" href="#study"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All subjects</a>
+  <h1 class="serif" id="sbTitle"></h1>
+  <p class="sub">Pick what you are looking for.</p>
+  <div class="subjects" id="sbChoices"></div>
+</main>
+
+<main id="vStudyList" class="in pg hidden">
+  <a class="back link" id="slBack" href="#study"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> <span id="slBackTxt"></span></a>
+  <h1 class="serif" id="slTitle"></h1>
+  <p class="sub" id="slSub"></p>
+  <div class="msg-line" id="slMsg" role="alert"></div>
+  <div id="slList" style="margin-top:20px"></div>
+</main>
+
 <!-- Admin -->
 <main id="vAdmin" class="in pg hidden">
   <h1 class="serif">Admin</h1>
@@ -603,6 +659,7 @@ footer :focus-visible{outline-color:#fff}
     <button role="tab" data-tab="acc" aria-selected="true">Accounts</button>
     <button role="tab" data-tab="ann" aria-selected="false">Announcements</button>
     <button role="tab" data-tab="cmp" aria-selected="false">Competitions</button>
+    <button role="tab" data-tab="std" aria-selected="false">Study</button>
   </div>
 
   <section id="tabAcc">
@@ -659,6 +716,37 @@ footer :focus-visible{outline-color:#fff}
       <div class="msg-line" id="kMsg" role="alert"></div>
     </form>
     <div class="card" style="margin-top:28px;max-width:720px"><h2 class="serif">Published competitions</h2><div id="kList"></div></div>
+  </section>
+  <section id="tabStudy" class="hidden">
+    <form class="box wide" id="scForm" novalidate>
+      <h2 class="serif">Add a YouTube channel</h2>
+      <label for="scSubject">Subject</label><select id="scSubject"></select>
+      <label for="scName">Channel name</label><input id="scName" maxlength="100" dir="auto">
+      <label for="scLink">Channel link</label><input id="scLink" type="url" placeholder="https://www.youtube.com/@channel" maxlength="300">
+      <label>Profile photo</label>
+      <button class="btn plain" type="button" id="scProfBtn">Choose profile photo</button>
+      <input id="scProfFile" type="file" accept="image/*" class="hidden">
+      <img id="scProfPrev" class="pv round hidden" alt="Profile preview">
+      <label>Cover photo</label>
+      <button class="btn plain" type="button" id="scCovBtn">Choose cover photo</button>
+      <input id="scCovFile" type="file" accept="image/*" class="hidden">
+      <img id="scCovPrev" class="pv cover hidden" alt="Cover preview">
+      <div class="hint">A wide photo works best for the cover.</div>
+      <button class="btn full" type="submit" id="scSubmit">Add channel</button>
+      <div class="msg-line" id="scMsg" role="alert"></div>
+    </form>
+    <div class="card" style="margin-top:28px;max-width:720px"><h2 class="serif">Channels</h2><div id="scList"></div></div>
+
+    <form class="box wide" id="sdForm" novalidate style="margin-top:40px">
+      <h2 class="serif">Add a document</h2>
+      <label for="sdSubject">Subject</label><select id="sdSubject"></select>
+      <label for="sdName">File name</label><input id="sdName" maxlength="100" dir="auto">
+      <label for="sdLink">Google Drive link</label><input id="sdLink" type="url" placeholder="https://drive.google.com/file/d/.../view" maxlength="300">
+      <div class="hint">In Google Drive, set the file to "Anyone with the link" so students can download it.</div>
+      <button class="btn full" type="submit">Add document</button>
+      <div class="msg-line" id="sdMsg" role="alert"></div>
+    </form>
+    <div class="card" style="margin-top:28px;max-width:720px"><h2 class="serif">Documents</h2><div id="sdList"></div></div>
   </section>
 </main>
 
@@ -919,8 +1007,8 @@ function render(){
   const h = location.hash.replace("#", ""), [h0, hid, h2] = h.split("/");
   let view;
   if (!currentUser) view = (h === "signin" || h === "register") ? "vAuth" : "vHome";
-  else view = h === "community" ? "vCommunity" : h === "competitions" ? "vComps" : (h0 === "competition" && hid) ? (h2 === "teams" ? "vTeams" : "vComp") : (h0 === "team" && hid && h2) ? "vTeam" : (h === "admin" && isAdmin) ? "vAdmin" : "vDash";
-  ["vHome", "vAuth", "vDash", "vCommunity", "vComps", "vComp", "vTeams", "vTeam", "vAdmin"].forEach(v => $(v).classList.toggle("hidden", v !== view));
+  else view = h === "community" ? "vCommunity" : h0 === "study" ? (!SUBJECTS[hid] ? "vStudy" : (h2 === "channels" || h2 === "documents") ? "vStudyList" : "vSubject") : h === "competitions" ? "vComps" : (h0 === "competition" && hid) ? (h2 === "teams" ? "vTeams" : "vComp") : (h0 === "team" && hid && h2) ? "vTeam" : (h === "admin" && isAdmin) ? "vAdmin" : "vDash";
+  ["vHome", "vAuth", "vDash", "vCommunity", "vComps", "vComp", "vTeams", "vTeam", "vStudy", "vSubject", "vStudyList", "vAdmin"].forEach(v => $(v).classList.toggle("hidden", v !== view));
   const reg = h === "register";
   $("loginForm").classList.toggle("hidden", reg); $("txtSignin").classList.toggle("hidden", reg);
   $("regForm").classList.toggle("hidden", !reg); $("txtRegister").classList.toggle("hidden", !reg);
@@ -931,7 +1019,7 @@ function render(){
   document.body.dataset.view = view;
   $("navAdmin").classList.toggle("hidden", !isAdmin);
   $("tabAdmin").classList.toggle("hidden", !isAdmin);
-  document.querySelectorAll("#appnav a, #tabbar a").forEach(a => { if (a.dataset.v === (["vComp", "vTeams", "vTeam"].includes(view) ? "vComps" : view)) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  document.querySelectorAll("#appnav a, #tabbar a").forEach(a => { if (a.dataset.v === (["vComp", "vTeams", "vTeam"].includes(view) ? "vComps" : ["vSubject", "vStudyList"].includes(view) ? "vStudy" : view)) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
   $("whoId").textContent = inn && profile ? (profile.fullName || profile.studentId) : "";
   $("navSignin").classList.toggle("hidden", inn || view === "vAuth");
   $("whoId").classList.toggle("hidden", !inn);
@@ -945,10 +1033,13 @@ function render(){
   if (view === "vDash") { drawAccount(); loadAnnouncements(); }
   if (view === "vCommunity") startChat();
   if (view === "vComps") loadComps();
+  if (view === "vStudy") drawSubjects();
+  if (view === "vSubject") drawSubject(hid);
+  if (view === "vStudyList") openStudyList(hid, h2);
   if (view === "vComp") openComp(decodeURIComponent(hid));
   if (view === "vTeams") openTeams(decodeURIComponent(hid));
   if (view === "vTeam") openTeam(decodeURIComponent(hid), decodeURIComponent(h2));
-  if (view === "vAdmin") { loadUsers(); loadAnnouncements(); loadComps(); }
+  if (view === "vAdmin") { loadUsers(); loadAnnouncements(); loadComps(); loadStudyAdmin(); }
 }
 window.addEventListener("hashchange", render);
 
@@ -1296,6 +1387,7 @@ document.querySelectorAll(".subtabs button").forEach(b => b.addEventListener("cl
   $("tabAcc").classList.toggle("hidden", b.dataset.tab !== "acc");
   $("tabAnn").classList.toggle("hidden", b.dataset.tab !== "ann");
   $("tabCmp").classList.toggle("hidden", b.dataset.tab !== "cmp");
+  $("tabStudy").classList.toggle("hidden", b.dataset.tab !== "std");
 }));
 
 async function loadUsers(){
@@ -1966,6 +2058,168 @@ $("tcForm").addEventListener("submit", async e => {
     await loadTeamLimit();
   }
   updateTeamSend();
+});
+
+// ---------- Study ----------
+Object.assign(ICON, {
+  book: '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>',
+  globe: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  atom: '<circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5Z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5Z"/>',
+  flask: '<path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/>',
+  dna: '<path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m17 6-2.5-2.5"/><path d="m14 8-1-1"/><path d="m7 18 2.5 2.5"/><path d="m3.5 14.5.5.5"/><path d="m20 9 .5.5"/><path d="m6.5 12.5 1 1"/><path d="m16.5 10.5 1 1"/><path d="m10 16 1.5 1.5"/>',
+  mountain: '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>',
+  languages: '<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>',
+  sigma: '<path d="M18 7V4H6l6 8-6 8h12v-3"/>',
+  cog: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/>',
+  video: '<rect width="20" height="14" x="2" y="5" rx="3"/><path d="m10 9 5 3-5 3z"/>',
+  file: '<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h8"/>',
+  download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>',
+  external: '<path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>'
+});
+const SUBJECTS = {
+  social:    { name: "Social Studies", ic: "globe" },
+  physics:   { name: "Physics",        ic: "atom" },
+  chemistry: { name: "Chemistry",      ic: "flask" },
+  biology:   { name: "Biology",        ic: "dna" },
+  geology:   { name: "Geology",        ic: "mountain" },
+  arabic:    { name: "Arabic",         ic: "languages" },
+  math:      { name: "Math",           ic: "sigma" },
+  mechanics: { name: "Mechanics",      ic: "cog" }
+};
+const isImg = x => /^data:image\//.test(x || "");
+// Google Drive: pull the file id out of a share link and build a direct-download link
+const driveId = u => {
+  try {
+    const x = new URL(u);
+    if (!/^(drive|docs)\.google\.com$/.test(x.hostname)) return "";
+    const m = x.pathname.match(/\/d\/([\w-]{10,})/);
+    return m ? m[1] : (x.searchParams.get("id") || "").match(/^[\w-]{10,}$/) ? x.searchParams.get("id") : "";
+  } catch (_) { return ""; }
+};
+const driveDl = id => `https://drive.google.com/uc?export=download&id=${encodeURIComponent(id)}`;
+const subjectOpts = sel => Object.entries(SUBJECTS).forEach(([k, v]) => { const o = document.createElement("option"); o.value = k; o.textContent = v.name; sel.appendChild(o); });
+subjectOpts($("scSubject")); subjectOpts($("sdSubject"));
+
+function drawSubjects(){
+  const box = $("stSubjects"); box.textContent = "";
+  Object.entries(SUBJECTS).forEach(([k, v]) => {
+    const a = el("a", "sbtn"); a.href = "#study/" + k;
+    const si = el("div", "si"); si.innerHTML = icon(v.ic, 28);
+    const t = el("div", "st2"); t.append(el("b", null, v.name), el("span", "d", "Channels and documents"));
+    a.append(si, t); a.insertAdjacentHTML("beforeend", icon("right", 22)); box.appendChild(a);
+  });
+}
+function drawSubject(k){
+  const v = SUBJECTS[k]; $("sbTitle").textContent = v.name;
+  const box = $("sbChoices"); box.textContent = "";
+  [["channels", "Channels", "Top YouTube channels for " + v.name, "video"], ["documents", "Documents", "Files you can download", "file"]].forEach(([p, name, d, ic]) => {
+    const a = el("a", "sbtn"); a.href = `#study/${k}/${p}`;
+    const si = el("div", "si"); si.innerHTML = icon(ic, 28);
+    const t = el("div", "st2"); t.append(el("b", null, name), el("span", "d", d));
+    a.append(si, t); a.insertAdjacentHTML("beforeend", icon("right", 22)); box.appendChild(a);
+  });
+}
+
+function channelCard(c){
+  const d = el("article", "chn"), cv = el("div", "cv");
+  if (isImg(c.cover)) { const im = el("img"); im.src = c.cover; im.alt = ""; im.loading = "lazy"; cv.appendChild(im); } else cv.insertAdjacentHTML("beforeend", icon("video", 44));
+  const row = el("div", "row"), pf = el("div", "pf");
+  if (isImg(c.profile)) { const im = el("img"); im.src = c.profile; im.alt = c.name || ""; pf.appendChild(im); } else pf.insertAdjacentHTML("beforeend", icon("user", 34));
+  const nm = el("div", "nm", c.name); nm.dir = "auto";
+  row.append(pf, nm);
+  if (validLink(c.link || "")) { const a = el("a", "btn"); a.href = c.link; a.target = "_blank"; a.rel = "noopener noreferrer"; a.append(document.createTextNode("View")); a.insertAdjacentHTML("beforeend", icon("external", 16)); row.appendChild(a); }
+  d.append(cv, row); return d;
+}
+function docRow(x){
+  const d = el("div", "docrow"), fi = el("div", "fi"); fi.innerHTML = icon("file", 22);
+  const n = el("div", "dn", x.name); n.dir = "auto"; d.append(fi, n);
+  const id = driveId(x.link || "");
+  if (id) { const a = el("a", "btn"); a.href = driveDl(id); a.target = "_blank"; a.rel = "noopener noreferrer"; a.setAttribute("download", ""); a.insertAdjacentHTML("beforeend", icon("download", 18)); a.append(document.createTextNode("Download")); d.appendChild(a); }
+  return d;
+}
+let slTok = 0;
+async function openStudyList(k, kind){
+  const tok = ++slTok, v = SUBJECTS[k], isCh = kind === "channels";
+  $("slBack").href = "#study/" + k; $("slBackTxt").textContent = v.name;
+  $("slTitle").textContent = `${v.name}: ${isCh ? "Channels" : "Documents"}`;
+  $("slSub").textContent = isCh ? "Open a channel on YouTube with the View button." : "Press Download to save the file to your device.";
+  const box = $("slList"); box.textContent = ""; say($("slMsg"), "Loading...", "ok");
+  try {
+    const s = await getDocs(query(collection(db, isCh ? "studyChannels" : "studyDocs"), where("subject", "==", k)));
+    if (tok !== slTok) return;
+    const list = s.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+    say($("slMsg"), "", "ok");
+    if (!list.length) return box.appendChild(el("p", "empty", isCh ? "No channels have been added for this subject yet." : "No documents have been added for this subject yet."));
+    list.forEach(x => box.appendChild(isCh ? channelCard(x) : docRow(x)));
+  } catch (err) { console.error(err); if (tok === slTok) say($("slMsg"), errText(err)); }
+}
+
+// Admin: add and delete channels and documents
+let scProf = "", scCov = "", scRows = [], sdRows = [];
+const pickPhoto = (btn, file, prev, maxDim, maxChars, setter, msg) => {
+  btn.addEventListener("click", () => file.click());
+  file.addEventListener("change", async e => {
+    const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+    if (!f.type.startsWith("image/")) return say(msg, "Only image files can be added.");
+    say(msg, "Preparing photo...", "ok");
+    try { const d = await packImage(f, maxDim, maxChars); setter(d); prev.src = d; prev.classList.remove("hidden"); say(msg, "", "ok"); }
+    catch (err) { console.error(err); say(msg, "Could not read that photo."); }
+  });
+};
+pickPhoto($("scProfBtn"), $("scProfFile"), $("scProfPrev"), 240, 50000, d => scProf = d, $("scMsg"));
+pickPhoto($("scCovBtn"), $("scCovFile"), $("scCovPrev"), 1000, 130000, d => scCov = d, $("scMsg"));
+
+async function loadStudyAdmin(){
+  try {
+    const [a, b] = await Promise.all([getDocs(query(collection(db, "studyChannels"), orderBy("createdAt", "desc"), limit(200))), getDocs(query(collection(db, "studyDocs"), orderBy("createdAt", "desc"), limit(300)))]);
+    scRows = a.docs.map(d => ({ id: d.id, ...d.data() })); sdRows = b.docs.map(d => ({ id: d.id, ...d.data() }));
+    drawStudyAdmin();
+  } catch (err) { console.error(err); say($("scMsg"), adminErr(err)); }
+}
+function drawStudyAdmin(){
+  const fill = (box, rows, col, label) => {
+    box.textContent = "";
+    if (!rows.length) return box.appendChild(el("p", "empty", "Nothing added yet."));
+    rows.forEach(r => {
+      const d = el("div", "item"), t = el("b", null, r.name); t.dir = "auto";
+      d.append(t, el("div", "meta", (SUBJECTS[r.subject]?.name || r.subject) + " · " + fmt(r.createdAt)));
+      const row = el("div"); row.style.marginTop = "10px";
+      const x = el("button", "sm del", "Delete"); x.type = "button";
+      x.onclick = async () => {
+        if (!confirm(`Delete "${r.name}"?`)) return;
+        try { await deleteDoc(doc(db, col, r.id)); loadStudyAdmin(); } catch (err) { console.error(err); say($(label), adminErr(err)); }
+      };
+      row.appendChild(x); d.appendChild(row); box.appendChild(d);
+    });
+  };
+  fill($("scList"), scRows, "studyChannels", "scMsg"); fill($("sdList"), sdRows, "studyDocs", "sdMsg");
+}
+$("scForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const m = $("scMsg"), btn = $("scSubmit"), subject = $("scSubject").value, name = $("scName").value.trim().replace(/\s+/g, " "), link = $("scLink").value.trim();
+  if (!SUBJECTS[subject]) return say(m, "Choose a subject.");
+  if (name.length < 3) return say(m, "Enter the channel name (3+ characters).");
+  if (!validLink(link)) return say(m, "Enter the channel link, starting with http:// or https://");
+  btn.disabled = true; say(m, "Saving...", "ok");
+  try {
+    await addDoc(collection(db, "studyChannels"), { subject, name, link, profile: scProf, cover: scCov, createdAt: serverTimestamp() });
+    $("scForm").reset(); scProf = scCov = ""; $("scProfPrev").classList.add("hidden"); $("scCovPrev").classList.add("hidden");
+    say(m, "Channel added.", "ok"); loadStudyAdmin();
+  } catch (err) { console.error(err); say(m, adminErr(err)); }
+  finally { btn.disabled = false; }
+});
+$("sdForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const m = $("sdMsg"), btn = e.submitter, subject = $("sdSubject").value, name = $("sdName").value.trim().replace(/\s+/g, " "), link = $("sdLink").value.trim();
+  if (!SUBJECTS[subject]) return say(m, "Choose a subject.");
+  if (name.length < 3) return say(m, "Enter the file name (3+ characters).");
+  if (!validLink(link) || !driveId(link)) return say(m, "Paste a Google Drive file link, for example https://drive.google.com/file/d/.../view");
+  btn.disabled = true; say(m, "Saving...", "ok");
+  try {
+    await addDoc(collection(db, "studyDocs"), { subject, name, link, createdAt: serverTimestamp() });
+    $("sdForm").reset(); say(m, "Document added.", "ok"); loadStudyAdmin();
+  } catch (err) { console.error(err); say(m, adminErr(err)); }
+  finally { btn.disabled = false; }
 });
 
 drawKCats(); drawKImgs(); drawKMode();

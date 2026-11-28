@@ -369,6 +369,48 @@ service cloud.firestore {
         );
     }
 
+    // ---------- study: YouTube channels and Drive documents (posted by admins, read by everyone signed in) ----------
+    function validSubject(s) {
+      return s in ['social', 'physics', 'chemistry', 'biology', 'geology', 'arabic', 'math', 'mechanics'];
+    }
+    function validStudyLink(l) {
+      return l is string && l.size() <= 300 && l.matches('https?://.+');
+    }
+
+    match /studyChannels/{id} {
+      allow read: if request.auth != null;
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['subject', 'name', 'link', 'profile', 'cover', 'createdAt'])
+        && request.resource.data.keys().hasAll(['subject', 'name', 'link', 'profile', 'cover', 'createdAt'])
+        && validSubject(request.resource.data.subject)
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 3
+        && request.resource.data.name.size() <= 100
+        && validStudyLink(request.resource.data.link)
+        && request.resource.data.profile is string
+        && request.resource.data.profile.size() <= 60000
+        && request.resource.data.cover is string
+        && request.resource.data.cover.size() <= 150000
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
+    match /studyDocs/{id} {
+      allow read: if request.auth != null;
+      allow create: if isAdmin()
+        && request.resource.data.keys().hasOnly(['subject', 'name', 'link', 'createdAt'])
+        && request.resource.data.keys().hasAll(['subject', 'name', 'link', 'createdAt'])
+        && validSubject(request.resource.data.subject)
+        && request.resource.data.name is string
+        && request.resource.data.name.size() >= 3
+        && request.resource.data.name.size() <= 100
+        && validStudyLink(request.resource.data.link)
+        && request.resource.data.createdAt == request.time;
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
     // Everything else stays closed
     match /{document=**} {
       allow read, write: if false;
