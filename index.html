@@ -309,6 +309,18 @@ dialog.lb img{display:block;max-width:92vw;max-height:86vh}
   .docrow{flex-wrap:wrap;padding:14px 16px}.docrow .btn{width:100%;justify-content:center}
 }
 
+/* Skeleton loading */
+.sk{display:block;position:relative;overflow:hidden;background:#e6e9f2;border-radius:4px}
+.sk::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);animation:sk-shimmer 1.4s ease-in-out infinite}
+@keyframes sk-shimmer{100%{transform:translateX(100%)}}
+.sk-l{height:.9rem;margin:9px 0}
+.sk-l.s{height:.7rem}
+.sk-l.t{height:1.2rem}
+.sk-l.h{height:2rem;margin:4px 0 10px}
+.sk-msg{pointer-events:none}
+.sk-msg.own{align-self:flex-end}
+@media (prefers-reduced-motion:reduce){.sk::after{animation:none;display:none}}
+
 /* Footer */
 footer{background:var(--navy);color:#d6daf0;margin-top:auto;font-size:.95rem}
 footer h3{font-size:1.05rem;color:#fff;margin-bottom:12px}
@@ -479,6 +491,9 @@ footer :focus-visible{outline-color:#fff}
 </nav>
 
 <!-- Home -->
+<!-- Boot skeleton: shown until sign-in state and profile are loaded -->
+<main id="vBoot" class="in pg" role="status" aria-label="Loading" aria-busy="true"></main>
+
 <main id="vHome" class="hidden">
   <section class="in hero">
     <h1>A shared workspace for Egypt's STEM students.</h1>
@@ -613,6 +628,7 @@ footer :focus-visible{outline-color:#fff}
 <main id="vQuestion" class="in pg hidden">
   <a class="back link" href="#qa"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All questions</a>
   <div class="msg-line" id="qdMsg" role="alert" style="margin-top:0"></div>
+  <div id="qdSkel" class="hidden" role="status" aria-label="Loading" aria-busy="true"></div>
   <div id="qdBody" class="hidden">
     <article class="card qmain" id="qdMain"></article>
     <section class="qa-ask" id="qdForm"></section>
@@ -640,6 +656,7 @@ footer :focus-visible{outline-color:#fff}
 <main id="vComp" class="in pg hidden">
   <a class="back link" href="#competitions"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All competitions</a>
   <div class="msg-line" id="dtMsg" role="alert" style="margin-top:0"></div>
+  <div id="dtSkel" class="hidden" role="status" aria-label="Loading" aria-busy="true"></div>
   <div id="pDetail" class="hidden">
     <h1 class="serif" id="dtTitle" dir="auto"></h1>
     <div class="tags" id="dtTags"></div>
@@ -654,6 +671,7 @@ footer :focus-visible{outline-color:#fff}
 <main id="vTeams" class="in pg hidden">
   <a class="back link" id="tsBack" href="#competitions"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back to the competition</a>
   <div class="msg-line" id="tsMsg" role="alert" style="margin-top:0"></div>
+  <div id="tsSkel" class="hidden" role="status" aria-label="Loading" aria-busy="true"></div>
   <div id="tsBody" class="hidden">
     <h1 class="serif" id="tsTitle">Teams</h1>
     <p class="sub" id="tsSub" dir="auto"></p>
@@ -666,6 +684,7 @@ footer :focus-visible{outline-color:#fff}
 <main id="vTeam" class="in pg hidden">
   <a class="back link" id="tmBack" href="#competitions"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All teams</a>
   <div class="msg-line" id="tmMsg" role="alert" style="margin-top:0"></div>
+  <div id="tmSkel" class="hidden" role="status" aria-label="Loading" aria-busy="true"></div>
   <div id="tmBody" class="hidden">
     <div class="tmh"><div class="tph" id="tmPhoto"></div><div><h1 class="serif" id="tmTitle" dir="auto"></h1><p class="sub" id="tmSub" dir="auto"></p><div class="facts" id="tmFacts"></div></div></div>
     <div class="msg-line" id="tmErr" role="alert"></div>
@@ -1073,6 +1092,29 @@ const validName = n => n.length <= 60 && NAME_RE.test(n);
 const validLink = l => /^https?:\/\/\S+$/i.test(l) && l.length <= 300;
 const say = (e, text, type = "err") => { e.textContent = text; e.className = "msg-line " + type; };
 
+// ---------- Skeleton loading (placeholders shaped like the content that is about to appear) ----------
+const skB = (cls = "", st = "") => `<div class="sk ${cls}"${st ? ` style="${st}"` : ""}></div>`;               // a block
+const skL = (w = "100%", cls = "") => skB("sk-l " + cls, `width:${w}`);                                          // a text line
+const skFrag = html => { const t = document.createElement("template"); t.innerHTML = html; return t.content; };
+const skRepeat = (fn, n) => Array.from({ length: n }, (_, i) => fn(i)).join("");
+const skShow = (id, on) => $(id).classList.toggle("hidden", !on);
+const skPut = (box, html) => { box.textContent = ""; box.appendChild(skFrag(html)); };
+const skAnn = n => skRepeat(() => `<div class="item" aria-hidden="true">${skL("45%", "t")}${skL("22%", "s")}${skL("100%")}${skL("80%")}</div>`, n);
+const skQ = n => skRepeat(() => `<div class="qcard" aria-hidden="true" style="pointer-events:none">${skL("40%")}${skL("100%")}${skL("70%")}${skL("25%", "s")}</div>`, n);
+const skAcard = n => skRepeat(() => `<div class="acard" aria-hidden="true">${skL("35%")}${skL("100%")}${skL("70%")}</div>`, n);
+const skComp = (n, cls = "") => skRepeat(() => `<div class="cc ${cls}" aria-hidden="true" style="pointer-events:none"><div class="th sk"></div><div class="bd">${skL("60%", "t")}${skL("45%")}${skL("30%", "s")}${skL("100%")}</div></div>`, n);
+const skChannel = n => skRepeat(() => `<div class="chn" aria-hidden="true"><div class="cv sk" style="border-radius:0"></div><div class="row"><div class="pf sk"></div><div class="nm">${skL("50%", "t")}</div></div></div>`, n);
+const skDoc = n => skRepeat(() => `<div class="docrow" aria-hidden="true"><div class="fi sk"></div><div class="dn">${skL("55%")}</div>${skB("", "width:110px;height:38px;flex:none")}</div>`, n);
+const skRows = n => skRepeat(() => `<tr aria-hidden="true">${[140, 90, 170, 100, 90, 110].map(w => `<td>${skL(w + "px")}</td>`).join("")}</tr>`, n);
+const skChat = () => [["", "55%"], ["own", "40%"], ["", "65%"], ["own", "50%"]].map(([c, w]) => `<article class="cmsg sk-msg ${c}" aria-hidden="true" style="width:${w}">${skL("35%", "s")}${skL("100%")}</article>`).join("");
+const skMember = n => skRepeat(() => `<div style="padding:8px 0;border-bottom:1px solid var(--line)" aria-hidden="true">${skL("60%")}${skL("40%", "s")}</div>`, n);
+
+$("vBoot").innerHTML = `${skL("30%", "h")}${skL("20%")}<div class="grid2"><section class="card">${skL("30%", "t")}${skAnn(3)}</section><aside><div class="card">${skL("45%", "t")}${skL("100%")}${skL("100%")}${skL("80%")}</div></aside></div>`;
+$("qdSkel").innerHTML = `<div class="card qmain" aria-hidden="true">${skL("35%")}<div style="margin-top:14px">${skL("100%")}${skL("92%")}${skL("60%")}</div></div><div class="qa-ask" aria-hidden="true" style="padding:18px">${skL("30%", "t")}${skB("", "height:64px;margin-top:14px")}</div><section class="ans-sec">${skL("25%", "t")}<div style="margin-top:14px">${skAcard(2)}</div></section>`;
+$("dtSkel").innerHTML = `${skL("55%", "h")}<div style="display:flex;gap:6px;margin-top:6px">${skB("", "width:90px;height:24px;border-radius:12px")}${skB("", "width:70px;height:24px;border-radius:12px")}</div><div class="grid2"><div>${skB("", "width:100%;aspect-ratio:16/10")}<div style="margin-top:26px">${skL("100%")}${skL("96%")}${skL("90%")}${skL("60%")}</div></div><aside><div class="card">${skL("40%", "t")}<div style="margin-top:14px">${skL("100%")}${skL("85%")}${skL("90%")}${skL("70%")}</div></div></aside></div>`;
+$("tsSkel").innerHTML = `${skL("30%", "h")}${skL("55%")}${skB("", "width:170px;height:44px;margin:24px 0 14px")}<div class="cps">${skComp(3, "tm")}</div>`;
+$("tmSkel").innerHTML = `<div class="tmh">${skB("", "width:96px;height:96px;flex:none")}<div style="flex:1;min-width:200px">${skL("40%", "h")}${skL("55%")}${skL("45%", "s")}</div></div><div class="grid2"><div>${skL("100%")}${skL("85%")}${skL("60%")}${skB("", "height:260px;margin-top:20px")}</div><aside><div class="card">${skL("40%", "t")}<div style="margin-top:12px">${skMember(3)}</div></div></aside></div>`;
+
 
 // ---------- Icons ----------
 const ICON = {
@@ -1176,7 +1218,7 @@ dropdown($("pCat"), { all: "All categories", sp: "Search categories", none: "No 
 
 // ---------- State and routing ----------
 let currentUser = null, profile = null, isAdmin = false, ready = false, busy = false;
-let rows = [], anns = [];
+let rows = [], anns = [], usersLoading = false, compsLoading = false;
 
 function render(){
   if (!ready || busy) return;
@@ -1185,7 +1227,7 @@ function render(){
   if (h === "terms") view = "vTerms";
   else if (!currentUser) view = (h === "signin" || h === "register") ? "vAuth" : "vHome";
   else view = (h === "qa" || h === "community") ? "vQA" : (h0 === "question" && hid) ? "vQuestion" : h0 === "study" ? (!SUBJECTS[hid] ? "vStudy" : (h2 === "channels" || h2 === "documents") ? "vStudyList" : "vSubject") : h === "competitions" ? "vComps" : (h0 === "competition" && hid) ? (h2 === "teams" ? "vTeams" : "vComp") : (h0 === "team" && hid && h2) ? "vTeam" : (h === "admin" && isAdmin) ? "vAdmin" : "vDash";
-  ["vHome", "vAuth", "vTerms", "vDash", "vQA", "vQuestion", "vComps", "vComp", "vTeams", "vTeam", "vStudy", "vSubject", "vStudyList", "vAdmin"].forEach(v => $(v).classList.toggle("hidden", v !== view));
+  ["vBoot", "vHome", "vAuth", "vTerms", "vDash", "vQA", "vQuestion", "vComps", "vComp", "vTeams", "vTeam", "vStudy", "vSubject", "vStudyList", "vAdmin"].forEach(v => $(v).classList.toggle("hidden", v !== view));
   const reg = h === "register";
   $("loginForm").classList.toggle("hidden", reg); $("txtSignin").classList.toggle("hidden", reg);
   $("regForm").classList.toggle("hidden", !reg); $("txtRegister").classList.toggle("hidden", !reg);
@@ -1331,6 +1373,7 @@ function drawAccount(){
   $("dId").textContent = profile.studentId; $("dSch").textContent = profile.school; $("dPhone").textContent = profile.phone;
 }
 async function loadAnnouncements(){
+  skPut($("dAnn"), skAnn(3)); skPut($("nList"), skAnn(3));
   try {
     const s = await getDocs(query(collection(db, "announcements"), orderBy("createdAt", "desc"), limit(20)));
     anns = s.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -1503,6 +1546,7 @@ function delButton(fn){
 let unsubQA = null, qaLimitN = QA_PAGE, qaItems = [];
 function startQA(){
   if (!profile || !profile.fullName || unsubQA) return;
+  $("qEmpty").classList.add("hidden"); $("qMore").classList.add("hidden"); skPut($("qList"), skQ(4));
   loadQaLimit(); subscribeQA();
 }
 function subscribeQA(){
@@ -1513,7 +1557,7 @@ function subscribeQA(){
       qaItems = snap.docs.map(d => ({ id: d.id, ...d.data({ serverTimestamps: "estimate" }) }));
       say($("qMsg"), "", "ok"); drawQA(snap.size >= qaLimitN);
     },
-    err => { console.error(err); say($("qMsg"), postErr(err, "Could not load the questions. Make sure the latest Firestore rules are published and your account has a full name.")); });
+    err => { console.error(err); $("qList").querySelectorAll(".qcard[aria-hidden]").forEach(n => n.remove()); $("qMore").disabled = false; say($("qMsg"), postErr(err, "Could not load the questions. Make sure the latest Firestore rules are published and your account has a full name.")); });
 }
 function stopQA(){
   if (unsubQA) { unsubQA(); unsubQA = null; }
@@ -1521,7 +1565,7 @@ function stopQA(){
   $("qList").textContent = ""; $("qMore").classList.add("hidden");
 }
 function drawQA(more){
-  const box = $("qList"); box.textContent = "";
+  const box = $("qList"); box.textContent = ""; $("qMore").disabled = false;
   qaItems.forEach(q => box.appendChild(qCard(q)));
   $("qEmpty").classList.toggle("hidden", qaItems.length > 0);
   $("qMore").classList.toggle("hidden", !more);
@@ -1538,7 +1582,7 @@ function qCard(q){
   a.append(meta, t, foot);
   return a;
 }
-$("qMore").addEventListener("click", () => { qaLimitN += QA_PAGE; subscribeQA(); });
+$("qMore").addEventListener("click", () => { qaLimitN += QA_PAGE; $("qMore").disabled = true; $("qList").appendChild(skFrag(skQ(2))); subscribeQA(); });
 
 async function postQuestion({ text, link, image }, msg){
   if (text.length < 3) { say(msg, "Write your question first (at least 3 characters)."); return false; }
@@ -1565,26 +1609,27 @@ function startQuestion(id){
   if (!profile || !profile.fullName) return;
   if (qd && qd.id === id) return;
   stopQuestion();
-  const me = qd = { id, unsubs: [], q: null, answers: [], comp: null, formState: "" };
-  $("qdBody").classList.add("hidden"); say($("qdMsg"), "Loading...", "ok");
+  const me = qd = { id, unsubs: [], q: null, answers: [], comp: null, formState: "", loaded: false };
+  $("qdBody").classList.add("hidden"); say($("qdMsg"), "", "ok"); skShow("qdSkel", true);
   loadQaLimit();
   me.unsubs.push(onSnapshot(doc(db, "questions", id),
     snap => {
       if (qd !== me) return;
+      skShow("qdSkel", false);
       if (!snap.exists()) { me.q = null; $("qdBody").classList.add("hidden"); say($("qdMsg"), "This question no longer exists. It may have been deleted."); return; }
       me.q = { id: snap.id, ...snap.data({ serverTimestamps: "estimate" }) };
       say($("qdMsg"), "", "ok"); $("qdBody").classList.remove("hidden"); drawQuestion();
     },
-    err => { console.error(err); say($("qdMsg"), postErr(err, "Could not load this question. Make sure the latest Firestore rules are published.")); }));
+    err => { console.error(err); skShow("qdSkel", false); say($("qdMsg"), postErr(err, "Could not load this question. Make sure the latest Firestore rules are published.")); }));
   me.unsubs.push(onSnapshot(query(collection(db, "questions", id, "answers"), orderBy("createdAt", "asc"), limit(200)),
-    snap => { if (qd !== me) return; me.answers = snap.docs.map(d => ({ id: d.id, ...d.data({ serverTimestamps: "estimate" }) })); drawAnswers(); },
-    err => { console.error(err); say($("qdMsg"), errText(err)); }));
+    snap => { if (qd !== me) return; me.loaded = true; me.answers = snap.docs.map(d => ({ id: d.id, ...d.data({ serverTimestamps: "estimate" }) })); drawAnswers(); },
+    err => { console.error(err); if (qd === me && !me.loaded) { $("qdAnswers").textContent = ""; $("qdForm").textContent = ""; } say($("qdMsg"), errText(err)); }));
 }
 function stopQuestion(){
   if (!qd) return;
   qd.unsubs.forEach(u => u());
   if (qd.comp) qd.comp.destroy();
-  qd = null;
+  qd = null; skShow("qdSkel", false);
   $("qdMain").textContent = ""; $("qdForm").textContent = ""; $("qdAnswers").textContent = "";
 }
 function drawQuestion(){
@@ -1598,6 +1643,11 @@ function drawQuestion(){
 function drawAnswers(){
   if (!qd || !qd.q) return;
   const n = qd.answers.length, box = $("qdAnswers"); box.textContent = "";
+  if (!qd.loaded) {   // answers are still loading: placeholders instead of "No answers yet" and the form
+    $("qdCount").textContent = "Answers"; box.appendChild(skFrag(skAcard(2)));
+    if (qd.formState !== "wait") { qd.formState = "wait"; const f = $("qdForm"); f.textContent = ""; f.append(el("h2", "serif", "Your answer"), skFrag(skB("", "height:64px;margin:6px 18px 18px"))); }
+    return;
+  }
   $("qdCount").textContent = n === 1 ? "1 answer" : n + " answers";
   if (!n) box.appendChild(el("p", "empty", "No answers yet. Be the first to answer."));
   qd.answers.forEach(a => box.appendChild(aCard(a)));
@@ -1678,14 +1728,15 @@ document.querySelectorAll(".subtabs button").forEach(b => b.addEventListener("cl
 }));
 
 async function loadUsers(){
-  say($("aMsg"), "Loading accounts...", "ok");
+  usersLoading = true; say($("aMsg"), "", "ok"); $("aCount").textContent = ""; $("aBody").innerHTML = skRows(6);
   try {
     const snap = await getDocs(query(collection(db, "users"), orderBy("createdAt", "desc")));
     rows = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    say($("aMsg"), "", "ok"); drawRows();
-  } catch (err) { console.error(err); say($("aMsg"), adminErr(err)); }
+    usersLoading = false; say($("aMsg"), "", "ok"); drawRows();
+  } catch (err) { console.error(err); usersLoading = false; $("aBody").textContent = ""; say($("aMsg"), adminErr(err)); }
 }
 function drawRows(){
+  if (usersLoading) return;
   const q = $("aSearch").value.trim().toLowerCase(), sc = $("aSchool").value;
   const list = rows.filter(r => (!sc || r.school === sc) &&
     (!q || [r.fullName, r.studentId, r.phone, r.school].some(v => String(v || "").toLowerCase().includes(q))));
@@ -1774,11 +1825,13 @@ const fact = (ic, text, cls) => { const s = el("span", cls); s.insertAdjacentHTM
 const tagsOf = cats => { const d = el("div", "tags"); (cats || []).forEach(c => d.appendChild(el("span", "tag", c))); return d; };
 
 async function loadComps(){
+  compsLoading = true; $("pCount").textContent = ""; say($("pMsg"), "", "ok");
+  $("pList").innerHTML = skComp(3); skPut($("kList"), skAnn(3));
   try {
     const s = await getDocs(query(collection(db, "competitions"), orderBy("createdAt", "desc"), limit(100)));
     comps = s.docs.map(d => ({ id: d.id, ...d.data() })); compsOk = true; say($("pMsg"), "", "ok");
   } catch (err) { console.error(err); say($("pMsg"), errText(err)); }
-  buildCatFilter(); drawComps(); drawCompAdmin();
+  compsLoading = false; buildCatFilter(); drawComps(); drawCompAdmin();
 }
 function buildCatFilter(){
   const sel = $("pCat"), cur = sel.value, have = new Set(comps.flatMap(c => c.categories || []));
@@ -1801,6 +1854,7 @@ function compCard(c){
   a.append(th, bd); return a;
 }
 function drawComps(){
+  if (compsLoading) return;
   const box = $("pList"); box.textContent = "";
   const q = $("pSearch").value.trim().toLowerCase(), cat = $("pCat").value, st = $("pStat").value, t = todayCairo();
   const list = sortComps(comps).filter(c => (!cat || (c.categories || []).includes(cat)) && (!st || (st === "up") === (c.date >= t)) &&
@@ -1815,19 +1869,26 @@ $("pStat").addEventListener("change", drawComps);
 
 async function openComp(id){
   const tok = ++compTok;
-  $("pDetail").classList.add("hidden"); say($("dtMsg"), "Loading...", "ok");
+  $("pDetail").classList.add("hidden"); say($("dtMsg"), "", "ok"); skShow("dtSkel", true);
   let c = null;
   try { const s = await getDoc(doc(db, "competitions", id)); if (s.exists()) c = { id: s.id, ...s.data() }; }
-  catch (err) { console.error(err); if (tok === compTok) say($("dtMsg"), errText(err)); return; }
+  catch (err) { console.error(err); if (tok === compTok) { skShow("dtSkel", false); say($("dtMsg"), errText(err)); } return; }
   if (tok !== compTok) return;
+  skShow("dtSkel", false);
   if (!c) return say($("dtMsg"), "This competition was not found. It may have been removed.");
   say($("dtMsg"), "", "ok"); drawDetail(c); $("pDetail").classList.remove("hidden");
   if (!(c.imageCount > 0)) return;
+  // The rest of the photos load separately: placeholders until they arrive
+  const hasCover = /^data:image\//.test(c.cover || "");
+  $("gal").insertAdjacentHTML("beforeend", hasCover
+    ? `<div class="thumbs" id="galSk" aria-hidden="true">${skRepeat(() => skB("", "flex:none;width:84px;height:62px"), Math.min(c.imageCount, 6))}</div>`
+    : `<div id="galSk" aria-hidden="true">${skB("", "width:100%;aspect-ratio:16/10")}</div>`);
   try {
     const s = await getDocs(query(collection(db, "competitions", id, "images"), orderBy("order", "asc")));
     const imgs = s.docs.map(d => d.data().data).filter(x => /^data:image\//.test(x || ""));
     if (tok === compTok && imgs.length) drawGallery(imgs);
   } catch (err) { console.error(err); }
+  if (tok === compTok) { const sk = $("galSk"); if (sk) sk.remove(); }
 }
 function drawDetail(c){
   $("dtTitle").textContent = c.title;
@@ -1917,12 +1978,13 @@ async function startEdit(c){
   $("kHead").textContent = "Edit competition"; $("kSubmit").textContent = "Save changes"; $("kCancel").classList.remove("hidden");
   drawKCats(); $("cmpForm").scrollIntoView({ block: "start" });
   if (!(c.imageCount > 0)) return;
-  const m = $("kMsg"); $("kSubmit").disabled = true; say(m, "Loading photos...", "ok");
+  const m = $("kMsg"); $("kSubmit").disabled = true; say(m, "", "ok");
+  $("kImgs").innerHTML = skRepeat(() => `<figure aria-hidden="true">${skB("", "width:100%;height:96px;border-radius:0")}<div style="padding:5px">${skL("70%", "s")}</div></figure>`, Math.min(c.imageCount, 6));
   try {
     const s = await getDocs(query(collection(db, "competitions", c.id, "images"), orderBy("order", "asc")));
     kImgs = s.docs.map((d, i) => ({ id: d.id, data: d.data().data, order: i })); kOrig = kImgs.map(x => x.id);
     drawKImgs(); say(m, "", "ok"); $("kSubmit").disabled = false;
-  } catch (err) { console.error(err); say(m, adminErr(err)); }
+  } catch (err) { console.error(err); drawKImgs(); say(m, adminErr(err)); }
 }
 $("cmpForm").addEventListener("submit", async e => {
   e.preventDefault();
@@ -2012,7 +2074,7 @@ function teamCard(t, cid){
 async function openTeams(cid){
   const tok = ++tsTok, m = $("tsMsg");
   $("tsBack").href = "#competition/" + enc(cid);
-  $("tsBody").classList.add("hidden"); say(m, "Loading...", "ok");
+  $("tsBody").classList.add("hidden"); say(m, "", "ok"); skShow("tsSkel", true);
   try {
     const cs = await getDoc(doc(db, "competitions", cid));
     if (tok !== tsTok) return;
@@ -2033,6 +2095,7 @@ async function openTeams(cid){
     list.forEach(t => box.appendChild(teamCard(t, cid)));
     $("tsBody").classList.remove("hidden");
   } catch (err) { console.error(err); if (tok === tsTok) say(m, errText(err)); }
+  finally { if (tok === tsTok) skShow("tsSkel", false); }
 }
 
 // Create a team
@@ -2077,18 +2140,18 @@ async function openTeam(cid, tid){
   stopTeam();
   const tok = tmTok, m = $("tmMsg");
   $("tmBack").href = `#competition/${enc(cid)}/teams`;
-  $("tmBody").classList.add("hidden"); say($("tmErr"), "", "ok"); say(m, "Loading...", "ok");
+  $("tmBody").classList.add("hidden"); say($("tmErr"), "", "ok"); say(m, "", "ok"); skShow("tmSkel", true);
   let comp, mine;
   try {
     const [cs, ms] = await Promise.all([getDoc(doc(db, "competitions", cid)), getDoc(memberRef(cid, currentUser.uid))]);
     if (tok !== tmTok) return;
-    if (!cs.exists()) return say(m, "This competition was not found. It may have been removed.");
+    if (!cs.exists()) { skShow("tmSkel", false); return say(m, "This competition was not found. It may have been removed."); }
     comp = { id: cs.id, ...cs.data() }; mine = ms.exists() ? ms.data().teamId : null;
-  } catch (err) { console.error(err); if (tok === tmTok) say(m, errText(err)); return; }
-  tm = { cid, tid, comp, mine, team: null, reqs: [], myReq: null, chatOn: false, reqOn: false, myReqOn: false, cancelled: false, notice: "", chatUnsub: null };
+  } catch (err) { console.error(err); if (tok === tmTok) { skShow("tmSkel", false); say(m, errText(err)); } return; }
+  tm = { cid, tid, comp, mine, team: null, reqs: [], reqsLoaded: false, myReqLoaded: false, myReq: null, chatOn: false, reqOn: false, myReqOn: false, cancelled: false, notice: "", chatUnsub: null };
   tmUnsubs.push(onSnapshot(teamRef(cid, tid), snap => {
     if (tok !== tmTok) return;
-    if (!snap.exists()) { tm.team = null; stopTeamChat(); $("tmBody").classList.add("hidden"); say(m, "This team no longer exists. It may have been disbanded.", "ok"); return; }
+    if (!snap.exists()) { tm.team = null; stopTeamChat(); skShow("tmSkel", false); $("tmBody").classList.add("hidden"); say(m, "This team no longer exists. It may have been disbanded.", "ok"); return; }
     const t = tm.team = { id: snap.id, ...snap.data() }, uid = currentUser.uid;
     const member = t.memberIds.includes(uid), owner = t.ownerUid === uid;
     if (member) tm.mine = t.id;
@@ -2097,31 +2160,32 @@ async function openTeam(cid, tid){
     if (owner && !tm.reqOn) startReqs();
     if (!owner && !tm.myReqOn) startMyReq();
     drawTeam();
-  }, err => { console.error(err); if (tok === tmTok) say(m, errText(err)); }));
+  }, err => { console.error(err); if (tok === tmTok) { skShow("tmSkel", false); say(m, errText(err)); } }));
 }
 function startReqs(){
   const { cid, tid } = tm; tm.reqOn = true;
   tmUnsubs.push(onSnapshot(collection(teamRef(cid, tid), "requests"), snap => {
     if (!tm) return;
+    tm.reqsLoaded = true;
     tm.reqs = snap.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.createdAt?.toMillis?.() ?? 0) - (b.createdAt?.toMillis?.() ?? 0));
     drawTeam();
-  }, err => console.error(err)));
+  }, err => { console.error(err); if (tm) { tm.reqsLoaded = true; drawTeam(); } }));
 }
 function startMyReq(){
   const { cid, tid } = tm; tm.myReqOn = true;
   tmUnsubs.push(onSnapshot(reqRef(cid, tid, currentUser.uid), snap => {
     if (!tm) return;
-    const prev = tm.myReq; tm.myReq = snap.exists() ? snap.data() : null;
+    const prev = tm.myReq; tm.myReq = snap.exists() ? snap.data() : null; tm.myReqLoaded = true;
     if (prev && prev.status === "pending" && !tm.myReq && !tm.cancelled && !(tm.team && tm.team.memberIds.includes(currentUser.uid))) tm.notice = "Your last request was not accepted.";
     drawTeam();
-  }, err => { console.error(err); if (tm) { tm.myReq = null; drawTeam(); } }));
+  }, err => { console.error(err); if (tm) { tm.myReq = null; tm.myReqLoaded = true; drawTeam(); } }));
 }
 
 function drawTeam(){
   if (!tm || !tm.team) return;
   const t = tm.team, c = tm.comp, uid = currentUser.uid;
   const member = t.memberIds.includes(uid), owner = t.ownerUid === uid, full = spotsLeft(t) === 0;
-  $("tmMsg").textContent = ""; $("tmBody").classList.remove("hidden");
+  $("tmMsg").textContent = ""; skShow("tmSkel", false); $("tmBody").classList.remove("hidden");
 
   const ph = $("tmPhoto"); ph.textContent = "";
   if (/^data:image\//.test(t.photo || "")) { const im = el("img"); im.src = t.photo; im.alt = ""; ph.appendChild(im); } else teamIcon(ph);
@@ -2153,7 +2217,8 @@ function drawTeam(){
   if (member && !owner) addBtn("Leave team", "plain", leaveTeam);
   if (owner) addBtn("Disband team", "plain", disbandTeam);
   if (!member && isAdmin) addBtn("Delete team (admin)", "plain", disbandTeam);
-  if (!member) {
+  if (!member && !tm.myReqLoaded) act.appendChild(skFrag(skB("", "height:46px;border-radius:3px")));
+  else if (!member) {
     if (tm.notice) note(tm.notice);
     if (tm.myReq && tm.myReq.status === "pending") { note("Your request was sent. The team owner will accept or decline it."); addBtn("Cancel request", "plain", cancelRequest); }
     else if (full) note("Team is full.");
@@ -2167,7 +2232,8 @@ function drawTeam(){
   if (owner) {
     const pend = tm.reqs.filter(r => r.status === "pending"), box = $("tmReqs"); box.textContent = "";
     $("tmReqCount").textContent = pend.length ? ` (${pend.length})` : "";
-    if (!pend.length) box.appendChild(el("p", "empty", "No pending requests."));
+    if (!tm.reqsLoaded) box.appendChild(skFrag(skAnn(1)));
+    else if (!pend.length) box.appendChild(el("p", "empty", "No pending requests."));
     pend.forEach(r => {
       const d = el("div", "item"), n = el("b", null, r.name); n.dir = "auto";
       const dl = el("dl", "dl"); dl.style.marginTop = "8px";
@@ -2263,9 +2329,10 @@ const tcCol = () => collection(teamRef(tm.cid, tm.tid), "messages");
 function startTeamChat(){
   const tok = tmTok; tm.chatOn = true;
   const start = Timestamp.fromDate(cairoMidnight());
+  $("tcList").insertAdjacentHTML("beforeend", skChat());   // placeholders until the first snapshot (drawTeamChat clears every .cmsg)
   tm.chatUnsub = onSnapshot(query(tcCol(), where("createdAt", ">=", start), orderBy("createdAt", "asc"), limitToLast(100)),
     snap => { tcMsgs = snap.docs.map(d => ({ id: d.id, ...d.data({ serverTimestamps: "estimate" }) })); say($("tcMsgLine"), "", "ok"); drawTeamChat(); },
-    err => { console.error(err); say($("tcMsgLine"), errText(err)); });
+    err => { console.error(err); $("tcList").querySelectorAll(".sk-msg").forEach(n => n.remove()); say($("tcMsgLine"), errText(err)); });
   tmUnsubs.push(tm.chatUnsub);
   purgeTeamOld(); loadTeamLimit();
   clearTimeout(tcMidT);
@@ -2430,15 +2497,15 @@ async function openStudyList(k, kind){
   $("slBack").href = "#study/" + k; $("slBackTxt").textContent = v.name;
   $("slTitle").textContent = `${v.name}: ${isCh ? "Channels" : "Documents"}`;
   $("slSub").textContent = isCh ? "Open a channel on YouTube with the View button." : "Press Download to save the file to your device.";
-  const box = $("slList"); box.textContent = ""; say($("slMsg"), "Loading...", "ok");
+  const box = $("slList"); box.textContent = ""; say($("slMsg"), "", "ok"); box.appendChild(skFrag(isCh ? skChannel(2) : skDoc(4)));
   try {
     const s = await getDocs(query(collection(db, isCh ? "studyChannels" : "studyDocs"), where("subject", "==", k)));
     if (tok !== slTok) return;
     const list = s.docs.map(d => ({ id: d.id, ...d.data() })).sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
-    say($("slMsg"), "", "ok");
+    say($("slMsg"), "", "ok"); box.textContent = "";
     if (!list.length) return box.appendChild(el("p", "empty", isCh ? "No channels have been added for this subject yet." : "No documents have been added for this subject yet."));
     list.forEach(x => box.appendChild(isCh ? channelCard(x) : docRow(x)));
-  } catch (err) { console.error(err); if (tok === slTok) say($("slMsg"), errText(err)); }
+  } catch (err) { console.error(err); if (tok === slTok) { box.textContent = ""; say($("slMsg"), errText(err)); } }
 }
 
 // Admin: add and delete channels and documents
@@ -2457,11 +2524,12 @@ pickPhoto($("scProfBtn"), $("scProfFile"), $("scProfPrev"), 240, 50000, d => scP
 pickPhoto($("scCovBtn"), $("scCovFile"), $("scCovPrev"), 1000, 130000, d => scCov = d, $("scMsg"));
 
 async function loadStudyAdmin(){
+  skPut($("scList"), skAnn(2)); skPut($("sdList"), skAnn(2));
   try {
     const [a, b] = await Promise.all([getDocs(query(collection(db, "studyChannels"), orderBy("createdAt", "desc"), limit(200))), getDocs(query(collection(db, "studyDocs"), orderBy("createdAt", "desc"), limit(300)))]);
     scRows = a.docs.map(d => ({ id: d.id, ...d.data() })); sdRows = b.docs.map(d => ({ id: d.id, ...d.data() }));
     drawStudyAdmin();
-  } catch (err) { console.error(err); say($("scMsg"), adminErr(err)); }
+  } catch (err) { console.error(err); $("scList").textContent = ""; $("sdList").textContent = ""; say($("scMsg"), adminErr(err)); }
 }
 function drawStudyAdmin(){
   const fill = (box, rows, col, label) => {
